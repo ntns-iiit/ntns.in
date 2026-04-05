@@ -7,6 +7,8 @@
     <p class="subtitle">{{ .Params.author }}</p>
   </header>
 
+  {{ partial "download-bar.html" . }}
+
   <div class="essay-body">
     {{ .Content }}
   </div>

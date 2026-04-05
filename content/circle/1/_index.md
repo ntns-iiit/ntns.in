@@ -3,9 +3,9 @@ title: "<em>Session I</em> — Students and Politics"
 type: session
 meeting: 1
 date: 2026-04-04
-sessionDate: 2026-04-08
+sessionDate: "2026-04-08T18:30:00+05:30"
 venue: "Vindhya A3-117"
-time: "6:30 PM"
+outputs: ["html", "ics"]
 ---
 
 The first session takes up a question the Reading Circle begins with: what does it mean for a student to take politics seriously? Not as an observer, not as someone with opinions, but as someone with a programme.

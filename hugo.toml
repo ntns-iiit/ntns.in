@@ -4,5 +4,14 @@ languageCode = "en-us"
 
 disableKinds = ["taxonomy", "term"]
 
+[mediaTypes."text/calendar"]
+  suffixes = ["ics"]
+
+[outputFormats.ics]
+  mediaType  = "text/calendar"
+  baseName   = "calendar"
+  isPlainText = true
+  notAlternative = true
+
 [markup.goldmark.renderer]
   unsafe = true

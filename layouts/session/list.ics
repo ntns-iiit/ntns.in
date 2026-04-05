@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ntns.in//NTNS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:{{ .Params.sessionDate | time.Format "20060102T150405Z07:00" }}
+DURATION:PT1H30M
+SUMMARY:{{ .Title | plainify }}
+LOCATION:{{ .Params.venue }}
+URL:{{ .Permalink }}
+DESCRIPTION:The Reading Circle · No Tyrants\, No Silence · {{ .Permalink }}
+END:VEVENT
+END:VCALENDAR

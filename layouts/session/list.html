@@ -4,8 +4,10 @@
   <header>
     <div class="eyebrow"><a href="/">ntns.in</a> &nbsp;·&nbsp; <a href="/circle/">← The Reading Circle</a> &nbsp;·&nbsp; Session {{ .Params.meeting }}</div>
     <h1>{{ .Title | safeHTML }}</h1>
-    {{ partial "meta-row.html" (slice .Params.venue .Params.sessionDate .Params.time) }}
+    {{ partial "meta-row.html" (slice .Params.venue (.Params.sessionDate | time.Format "2 January 2006") (.Params.sessionDate | time.Format "3:04 PM")) }}
   </header>
+
+  {{ partial "add-to-calendar.html" . }}
 
   <div class="session-texts">
     <span class="texts-label">Texts for This Session</span>
@@ -26,7 +28,7 @@
 
 {{ define "footer" }}
   <footer>
-    <span>{{ .Params.sessionDate }} &nbsp;·&nbsp; {{ .Params.venue }}</span>
+    <span>{{ .Params.sessionDate | time.Format "2 January 2006" }} &nbsp;·&nbsp; {{ .Params.venue }}</span>
     <span><a href="/circle/">The Reading Circle</a> &nbsp;·&nbsp; <a href="/">ntns.in</a></span>
   </footer>
 {{ end }}

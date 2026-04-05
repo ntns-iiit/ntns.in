@@ -355,3 +355,57 @@ footer a:hover { border-color: var(--red); }
 .landing-sub a:hover {
   color: var(--ink);
 }
+
+/* ── DOWNLOAD BAR ── */
+.download-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.download-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--muted);
+  padding: 0.4em 0.9em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.download-btn:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+/* ── PRINT ── */
+@media print {
+  .eyebrow,
+  footer,
+  .download-bar {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  .page {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  header {
+    border-bottom: 2px solid #000;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

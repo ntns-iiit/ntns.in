@@ -60,15 +60,15 @@ jobs:
             npm install
           fi
 
-      - name: Build with Hugo
+      - name: Install Pandoc
+        run: sudo apt-get install -y pandoc
+
+      - name: Build
         env:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
-        run: |
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"          
+          HUGO_FLAGS: "--gc --minify --baseURL ${{ steps.pages.outputs.base_url }}/"
+        run: make build          
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

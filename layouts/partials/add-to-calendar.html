@@ -1,0 +1,8 @@
+{{ $t     := .Params.sessionDate | time.AsTime }}
+{{ $start := $t | time.Format "20060102T150405" }}
+{{ $end   := $t.Add (time.ParseDuration "1h30m") | time.Format "20060102T150405" }}
+{{ $gcal := printf "https://calendar.google.com/calendar/render?action=TEMPLATE&text=%s&dates=%s/%s&location=%s&details=%s" (.Title | plainify | urlquery) $start $end (.Params.venue | urlquery) (.Permalink | urlquery) }}
+<div class="download-bar">
+  <a class="download-btn" href="{{ $gcal }}" target="_blank" rel="noopener">Add to Google Calendar</a>
+  <a class="download-btn" href="{{ .RelPermalink }}calendar.ics" download>Download .ics</a>
+</div>
