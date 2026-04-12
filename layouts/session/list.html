@@ -12,7 +12,7 @@
   <div class="session-texts">
     <span class="texts-label">Texts for This Session</span>
     <ul class="text-list">
-      {{ range .Pages }}
+      {{ range .Pages.ByDate.Reverse }}
       <li>
         <span class="text-author">{{ .Params.author }}</span>
         <a href="{{ .RelPermalink }}">{{ .Title }}</a>

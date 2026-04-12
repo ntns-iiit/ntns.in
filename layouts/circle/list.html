@@ -11,7 +11,7 @@
 
   {{ if .Pages }}
   <ul class="meeting-list">
-    {{ range .Pages }}
+    {{ range .Pages.ByDate.Reverse }}
     <li>
       <span class="meeting-num">Meeting {{ .Params.meeting }}</span>
       <a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>

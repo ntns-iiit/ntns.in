@@ -15,7 +15,7 @@
       {{ $mom := site.GetPage "/silence/mom" }}
       {{ if $mom }}{{ with $mom.Pages }}
       <ul class="landing-sub">
-        {{ range . }}
+        {{ range .ByDate.Reverse }}
         <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
         {{ end }}
       </ul>
@@ -28,7 +28,7 @@
       {{ $circle := site.GetPage "/circle" }}
       {{ if $circle }}{{ with $circle.Sections }}
       <ul class="landing-sub">
-        {{ range . }}
+        {{ range .ByDate.Reverse }}
         <li><a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a></li>
         {{ end }}
       </ul>
