@@ -9,6 +9,7 @@
   </header>
 
   {{ .Content }}
+  {{- if .Store.Get "inSection" }}</section>{{ end }}
 {{ end }}
 
 {{ define "footer" }}

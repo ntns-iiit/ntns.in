@@ -1,0 +1,19 @@
+{{- if .Page.Store.Get "inSection" -}}
+</section>
+{{- .Page.Store.Set "inSection" false -}}
+{{- end }}
+
+<div class="cta">
+{{- with .Get "title" }}
+  <div class="cta-title">{{ . }}</div>
+{{- end -}}
+{{- with .Get "details" }}
+  <div class="cta-details">{{ . | safeHTML }}</div>
+{{- end -}}
+{{- with .Get "note" }}
+  <p class="cta-note">{{ . }}</p>
+{{- end -}}
+{{- with .Inner }}
+  <p class="cta-text">{{ . | safeHTML }}</p>
+{{- end }}
+</div>
