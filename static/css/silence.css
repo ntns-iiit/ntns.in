@@ -80,6 +80,28 @@ h1 em { color: var(--red); }
 
 .meta .red { color: var(--red); }
 
+.meta a {
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1px solid var(--red);
+  transition: color 0.2s, border-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
+  vertical-align: -0.1em;
+}
+
+.meta a:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
 /* ── SECTIONS ── */
 section { margin-bottom: 3rem; }
 
