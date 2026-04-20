@@ -215,6 +215,15 @@ footer a {
 
 footer a:hover { border-color: var(--red); }
 
+.disclaimer {
+  margin-top: 0.1rem;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+  text-align: right;
+}
+
 /* ── ITEM LIST — shared pattern for meetings, sessions, texts ── */
 /* Used by: .meeting-list (mom/circle indexes), .text-list (session page) */
 .meeting-list,
