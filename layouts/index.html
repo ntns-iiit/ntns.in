@@ -16,8 +16,26 @@
       <span class="link-label">Manifesto</span>
       <a href="/silence/">Who Does Your <em>Silence</em> Protect?</a>
       <div class="link-desc">On the Production of the Apolitical Engineer</div>
-      {{ $mom := site.GetPage "/silence/mom" }}
-      {{ if $mom }}{{ with $mom.Pages }}
+    </li>
+    <li>
+      <span class="link-label">NTNS: Praxis</span>
+      <a href="/praxis/">NTNS: Praxis Meetings</a>
+      <div class="link-desc">Weekly general meetings</div>
+      {{ $praxis := site.GetPage "/praxis" }}
+      {{ if $praxis }}{{ with $praxis.Pages }}
+      <ul class="landing-sub">
+        {{ range .ByDate.Reverse }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ul>
+      {{ end }}{{ end }}
+    </li>
+    <li>
+      <span class="link-label">NTNS: Administration</span>
+      <a href="/admin/">NTNS: Administration Meetings</a>
+      <div class="link-desc">Weekly accountability meetings with the registrar</div>
+      {{ $admin := site.GetPage "/admin" }}
+      {{ if $admin }}{{ with $admin.Pages }}
       <ul class="landing-sub">
         {{ range .ByDate.Reverse }}
         <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
@@ -37,7 +55,6 @@
         {{ end }}
       </ul>
       {{ end }}{{ end }}
-    </li>
     </li>
   </ul>
 

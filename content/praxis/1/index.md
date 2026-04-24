@@ -1,14 +1,17 @@
 ---
 title: "Minutes of the First Meeting"
 heading: "Minutes of the <em>First</em> Meeting"
+seriesTitle: "NTNS: Praxis Meetings"
 meeting: 1
-type: "mom"
+type: "praxis"
 date: 2026-03-27
 meta:
-  - "Vindhya A3 117"
+  - "IIIT Hyderabad"
   - "27 March 2026"
-  - "6:00 PM"
+  - "Open"
 sectioned: true
+aliases:
+  - "/silence/mom/1/"
 ---
 
 ## Context & Framing

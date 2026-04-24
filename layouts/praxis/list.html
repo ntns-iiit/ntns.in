@@ -2,8 +2,8 @@
 
 {{ define "main" }}
   <header>
-    {{ $parentHref := .Params.parentHref | default "/silence/" }}
-    {{ $parentLabel := .Params.parentLabel | default "Manifesto" }}
+    {{ $parentHref := .Params.parentHref | default "/" }}
+    {{ $parentLabel := .Params.parentLabel | default "Home" }}
     <div class="eyebrow"><a href="/">ntns.in</a> &nbsp;·&nbsp; <a href="{{ $parentHref }}">← {{ $parentLabel }}</a> &nbsp;·&nbsp; {{ .Title }}</div>
     <h1>{{ .Params.heading | safeHTML }}</h1>
     {{ with .Params.subtitle }}<p class="subtitle">{{ . }}</p>{{ end }}
@@ -25,6 +25,6 @@
 {{ define "footer" }}
   <footer>
     <span><a href="/">ntns.in</a></span>
-    <span>{{ with .Params.footerLabel }}{{ . }}{{ else }}Who Does Your Silence Protect?{{ end }}</span>
+    <span>{{ with .Params.footerLabel }}{{ . }}{{ else }}NTNS: Praxis Meetings{{ end }}</span>
   </footer>
 {{ end }}

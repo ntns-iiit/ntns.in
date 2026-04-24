@@ -8,7 +8,8 @@ meta:
   - "Vindhya A3 117"
   - "6:30 PM"
   - "Open to All"
-minutesLink: "/silence/mom/"
+minutesLink: "/praxis/"
+minutesLinkText: "Read the NTNS: Praxis Meetings →"
 date: 2026-03-27
 sectioned: true
 sectionIds: true

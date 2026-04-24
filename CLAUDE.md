@@ -23,7 +23,7 @@ Hugo's default section type follows the top-level directory, so nested sections 
 | Content path | `type:` | Layout |
 | --- | --- | --- |
 | `content/silence/_index.md` | (default `silence`) | `layouts/silence/list.html` |
-| `content/silence/mom/*` | `mom` | `layouts/mom/{list,single}.html` |
+| `content/praxis/*` | `praxis` | `layouts/praxis/{list,single}.html` |
 | `content/circle/_index.md` | (default `circle`) | `layouts/circle/list.html` |
 | `content/circle/N/_index.md` | `session` | `layouts/session/list.{html,ics}` |
 | `content/circle/N/<essay>.md` | `essay` | `layouts/essay/single.html` |

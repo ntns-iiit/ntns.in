@@ -2,13 +2,15 @@
 title: "Minutes of the Second Meeting"
 heading: "Minutes of the <em>Second</em> Meeting"
 meeting: 2
-type: "mom"
+type: "praxis"
 date: 2026-04-10
 meta:
-  - "Vindhya A3 117"
+  - "IIIT Hyderabad"
   - "10 April 2026"
-  - "6:30 PM"
+  - "Open"
 sectioned: true
+aliases:
+  - "/silence/mom/2/"
 ---
 
 ## The IT Amendment Act
@@ -95,5 +97,4 @@ On the question of public discussion: one participant argued that bringing these
 1. Explore student-run GSC AMAs as a complement to formal sensitisation sessions, particularly for first-year cluster meetings.  
 1. Consider a *Ping\!* piece inviting men on campus to reflect on these conversations in their own circles, without being prompted.  
 1. Continue meeting. Settle the question of weekly versus biweekly cadence in the group.
-
 
