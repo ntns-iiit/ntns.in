@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Bash(hugo)"
+      "Bash(hugo)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(hugo --cleanDestinationDir)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(git -C /home/noteness/git/necessary129.github.io status)",
+      "Bash(git -C /home/noteness/git/necessary129.github.io add layouts/session/list.html)",
+      "Bash(git -C /home/noteness/git/necessary129.github.io commit -m ' *)",
+      "Bash(make build *)"
     ]
   }
 }

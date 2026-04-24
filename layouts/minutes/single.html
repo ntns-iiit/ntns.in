@@ -1,0 +1,20 @@
+{{ define "title" }}{{ .Title | plainify }} · The Reading Circle{{ end }}
+
+{{ define "main" }}
+  <header>
+    <div class="eyebrow"><a href="/">ntns.in</a> &nbsp;·&nbsp; <a href="{{ .Parent.RelPermalink }}">← Session {{ .Parent.Params.meeting }}</a> &nbsp;·&nbsp; {{ .Date.Format "2 January 2006" }}</div>
+    <h1>{{ .Params.heading | safeHTML }}</h1>
+    <p class="subtitle">The Reading Circle — Session {{ .Parent.Params.meeting }}</p>
+    {{ partial "meta-row.html" .Params.meta }}
+  </header>
+
+  {{ .Content }}
+  {{- if .Store.Get "inSection" }}</section>{{ end }}
+{{ end }}
+
+{{ define "footer" }}
+  <footer>
+    <span>{{ .Date.Format "2 January 2006" }}</span>
+    <span><a href="{{ .Parent.RelPermalink }}">← Session {{ .Parent.Params.meeting }}</a> &nbsp;·&nbsp; <a href="/">ntns.in</a></span>
+  </footer>
+{{ end }}

@@ -129,6 +129,16 @@ h2 {
   letter-spacing: 0.04em;
 }
 
+h3 {
+  font-family: 'IM Fell English', serif;
+  font-size: 1.05rem;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--ink);
+  margin-top: 1.8rem;
+  margin-bottom: 0.6rem;
+}
+
 p { margin-bottom: 1em; text-align: justify; hyphens: auto; }
 p:last-child { margin-bottom: 0; }
 strong { font-weight: 600; }

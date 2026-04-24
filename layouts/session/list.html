@@ -9,10 +9,16 @@
 
   {{ partial "add-to-calendar.html" . }}
 
+  {{ with .GetPage "minutes" }}
+  <div class="minutes-link">
+    <a href="{{ .RelPermalink }}">Read the minutes of this meeting →</a>
+  </div>
+  {{ end }}
+
   <div class="session-texts">
     <span class="texts-label">Texts for This Session</span>
     <ul class="text-list">
-      {{ range .Pages.ByDate.Reverse }}
+      {{ range (where .Pages "Type" "essay").ByDate.Reverse }}
       <li>
         <span class="text-author">{{ .Params.author }}</span>
         <a href="{{ .RelPermalink }}">{{ .Title }}</a>
