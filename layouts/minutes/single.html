@@ -8,7 +8,9 @@
     {{ partial "meta-row.html" .Params.meta }}
   </header>
 
-  {{ .Content }}
+  <div class="minutes-body">
+    {{ .Content }}
+  </div>
   {{- if .Store.Get "inSection" }}</section>{{ end }}
 {{ end }}
 

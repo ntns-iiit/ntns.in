@@ -139,6 +139,45 @@ h3 {
   margin-bottom: 0.6rem;
 }
 
+.minutes-body h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.02rem;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-top: 2.1rem;
+  margin-bottom: 0.7rem;
+}
+
+.minutes-body h2 {
+  font-size: 1.3rem;
+}
+
+.minutes-body section {
+  counter-increment: minutes-section;
+  counter-reset: minutes-subsection;
+}
+
+.minutes-body {
+  counter-reset: minutes-section;
+}
+
+.minutes-body section h3 {
+  counter-increment: minutes-subsection;
+}
+
+.minutes-body section h3::before {
+  content: counter(minutes-section, upper-roman) "." counter(minutes-subsection, upper-roman) " ";
+  color: var(--ink);
+}
+
+.minutes-body h2 strong,
+.minutes-body h3 strong {
+  font-weight: inherit;
+}
+
 p { margin-bottom: 1em; text-align: justify; hyphens: auto; }
 p:last-child { margin-bottom: 0; }
 strong { font-weight: 600; }

@@ -11,16 +11,16 @@ meta:
 sectioned: true
 ---
 
-## **Introductions**
+## Introductions
 
 The session opened with a round of introductions from all attendees.
 
 
-## **Overview of Bhagat Singh's Work**
+## Overview of Bhagat Singh's Work
 
 The speaker provided an outline of key themes in Bhagat Singh's (BS) political writings, organised under two major pieces.
 
-### **Students and Politics**
+### Students and Politics
 
 * BS begins by critiquing the educational institutions of Punjab for producing politically apathetic students — apolitical here meaning alignment with existing power structures, not genuine neutrality.  
 * "Nobody is a bystander" — everyone is a participant; silence sides with power.  
@@ -31,7 +31,7 @@ The speaker provided an outline of key themes in Bhagat Singh's (BS) political w
 * BS cites historical precedent: students were at the forefront of the Bolshevik Revolution and other episodes of radical social change.  
 * With 3 million people lacking access to education, those who have it bear a responsibility to society.
 
-### **To Young Political Workers**
+### To Young Political Workers
 
 * Addressed to students and party workers.  
 * **On Compromise:** Revolution is a long struggle; most participants may not live to see its completion. Daily commitment is required. *"To live is to resist, and to resist is to live."*  
@@ -39,7 +39,7 @@ The speaker provided an outline of key themes in Bhagat Singh's (BS) political w
 * BS cited Lenin's tactical use of compromise during the Bolshevik Revolution as a model: strategic concessions are permissible, but the goal must never be compromised.  
 * Caution: The lives of Dalits, Tribals, and other marginalised groups did not meaningfully improve in the aftermath of the Bolshevik Revolution — a reminder that revolution must be assessed by its material outcomes.
 
-### **BS's Programme for the Revolutionary**
+### BS's Programme for the Revolutionary
 
 * Politics is not confined to speeches; every dimension of life is political.  
 * There must be no romantic expectation of a sudden systemic collapse. Change requires daily reading, organising, and preparation.  
@@ -50,9 +50,9 @@ The speaker provided an outline of key themes in Bhagat Singh's (BS) political w
 * The question posed: are we being trained to think, or merely to perform?
 
 
-## **Open Discussion**
+## Open Discussion
 
-### **On the Continuity of Struggle and Personal Exhaustion**
+### On the Continuity of Struggle and Personal Exhaustion
 
 **Student 1** raised the question: the revolution is a continuous struggle, not a single event — but those who already come from harder circumstances are already in a struggle. Is it not permissible to rest?
 
@@ -63,7 +63,7 @@ The speaker provided an outline of key themes in Bhagat Singh's (BS) political w
 **Speaker** pointed to the fee disparity between UoH and IIIT, and the Parijat incident, as evidence that keeping one's head down enables the repetition of harm.
 
 
-### **On Moralising vs. Structural Analysis**
+### On Moralising vs. Structural Analysis
 
 **Student 3** expressed hesitation about moralising a revolutionary position, and questioned whether resistance rooted in self-interest could be considered genuinely revolutionary.
 
@@ -78,7 +78,7 @@ The speaker provided an outline of key themes in Bhagat Singh's (BS) political w
 **Speaker** responded: once we understand what is wretched in the current system, clarity on what to work toward follows.
 
 
-### **On Empathy, Privilege, and Responsibility**
+### On Empathy, Privilege, and Responsibility
 
 **Student 3** asked whether acting out of empathy for others is ultimately a form of selfishness — whether we are truly revolutionary or merely self-serving.
 
@@ -93,7 +93,7 @@ The speaker provided an outline of key themes in Bhagat Singh's (BS) political w
 **Speaker:** UoH appears more free than IIIT precisely because that freedom was won through resistance.
 
 
-### **On Apathy as an Engineered Condition**
+### On Apathy as an Engineered Condition
 
 **Student 3** noted that the NTNS Manifesto identifies apathy as a product of the system. For those in the top 1%, the system offers a viable path of apathy — there is no practical compulsion to resist.
 
@@ -104,12 +104,12 @@ The speaker provided an outline of key themes in Bhagat Singh's (BS) political w
 **Student 11** added: IIIT students are privileged by virtue of the system; with that comes a responsibility to identify and name these structures. Silence is alignment with the status quo.
 
 
-### **On Labour, Trade Unions, and Wider Implications**
+### On Labour, Trade Unions, and Wider Implications
 
 **Student 12** noted that most IIIT graduates will still be workers. Labour rights in India differ dramatically from those in the EU; trade unions remain a meaningful mechanism for worker power. The state actively suppresses union organising because it represents a genuine transfer of power.
 
 
-### **On Forms of Protest and Organisation**
+### On Forms of Protest and Organisation
 
 **Student 14** shared the example of women in a tribal village in West Bengal who, after two months of unsuccessful petitions to the DM's office over a lack of water, brought their children and had them defecate in the office. Water was restored within two days. The point: effective resistance need not be direct confrontation; subversion is also a form of resistance.
 
@@ -118,7 +118,7 @@ Hunger strikes were also raised as a potentially effective form of protest withi
 **Speaker** cautioned against expecting protest to follow immediately from a single reading session: sustained reading and awareness must build to the point where action becomes a natural expression of collective consciousness.
 
 
-### **On Theory vs. Lived Experience**
+### On Theory vs. Lived Experience
 
 **Student 7** pushed back on the primacy of reading circles, arguing that the most significant learnings come not from texts but from real conversations outside the room — that lived experience should not be discounted in favour of the theoretical.
 
@@ -127,7 +127,7 @@ Hunger strikes were also raised as a potentially effective form of protest withi
 **Student 15** noted that a conversation the previous day had illuminated aspects of their own colonial mindset — underscoring the value of both conversations and structured texts.
 
 
-### **On Exceptionalism and the Myth of "Making It"**
+### On Exceptionalism and the Myth of "Making It"
 
 **Student 16** named the myth of exceptionalism — "I struggled and made it, so I no longer need to struggle" — as itself a product of the system that atomises people and makes them feel exceptional and therefore exempt.
 
@@ -136,7 +136,7 @@ Hunger strikes were also raised as a potentially effective form of protest withi
 **Student 17:** The system engineers isolation and individualism at every step — the absence of conversations like this one is itself a structural feature, not an accident.
 
 
-### **3.9 On Scope of Responsibility**
+### On Scope of Responsibility
 
 **Student 18** asked what can reasonably be expected of privileged individuals, and where the line lies — particularly regarding responsibility to people outside the campus community.
 
