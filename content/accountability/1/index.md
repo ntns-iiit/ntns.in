@@ -10,8 +10,10 @@ meta:
   - "23 April 2026"
   - "Faculty Meeting Room"
 sectioned: true
+parentLabel: "Accountability"
 aliases:
   - "/silence/admin/1/"
+  - "/admin/1"
 ---
 
 ## Agenda

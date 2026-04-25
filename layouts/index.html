@@ -18,7 +18,7 @@
       <div class="link-desc">On the Production of the Apolitical Engineer</div>
     </li>
     <li>
-      <span class="link-label">NTNS: Praxis</span>
+      <span class="link-label">General</span>
       <a href="/praxis/">NTNS: Praxis Meetings</a>
       <div class="link-desc">Weekly general meetings</div>
       {{ $praxis := site.GetPage "/praxis" }}
@@ -31,11 +31,11 @@
       {{ end }}{{ end }}
     </li>
     <li>
-      <span class="link-label">NTNS: Administration</span>
-      <a href="/admin/">NTNS: Administration Meetings</a>
+      <span class="link-label">Accountability</span>
+      <a href="/accountability/">NTNS: Administration Meetings</a>
       <div class="link-desc">Weekly accountability meetings with the registrar</div>
-      {{ $admin := site.GetPage "/admin" }}
-      {{ if $admin }}{{ with $admin.Pages }}
+      {{ $accountability := site.GetPage "/accountability" }}
+      {{ if $accountability }}{{ with $accountability.Pages }}
       <ul class="landing-sub">
         {{ range .ByDate.Reverse }}
         <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
@@ -45,7 +45,7 @@
     </li>
     <li>
       <span class="link-label">Reading Circle</span>
-      <a href="/circle/">The Reading Circle</a>
+      <a href="/circle/">NTNS: Theory</a>
       <div class="link-desc">To politicize the apolitical engineer</div>
       {{ $circle := site.GetPage "/circle" }}
       {{ if $circle }}{{ with $circle.Sections }}
