@@ -11,7 +11,7 @@ meta:
   - "IIIT Hyderabad"
   - "Thursdays 12-1 PM"
   - "Registrar"
-type: "admin"
+type: "accountability"
 date: 2026-04-24
 aliases:
   - "/silence/admin/"

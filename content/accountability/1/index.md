@@ -3,7 +3,7 @@ title: "Minutes of the First Accountability Meeting"
 heading: "Minutes of the <em>First</em> Accountability Meeting"
 seriesTitle: "NTNS: Admin Accountability Meetings"
 meeting: 1
-type: "admin"
+type: "accountability"
 date: 2026-04-24
 meta:
   - "IIIT Hyderabad"
