@@ -8,8 +8,23 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <script defer src="https://stats.ntns.in/script.js" data-website-id="0e5e7dcd-ccc1-440c-a946-4ead7736d637"></script>
 </head>
-<body>
+<body class="{{ if .IsHome }}home{{ end }}">
 <div class="page">
+  <header class="site-header">
+    <nav class="site-nav">
+      {{ if not .IsHome }}
+      <a href="/" class="nav-logo">
+        <img src="/ntns-logo.svg" alt="NTNS Logo">
+      </a>
+      {{ end }}
+      <ul>
+        <li><a href="/silence/">Manifesto</a></li>
+        <li><a href="/praxis/">Praxis</a></li>
+        <li><a href="/accountability/">Accountability</a></li>
+        <li><a href="/circle/">Theory</a></li>
+      </ul>
+    </nav>
+  </header>
   {{ block "main" . }}{{ end }}
   {{ block "footer" . }}{{ end }}
   <p class="disclaimer">We are an independent student body. Views expressed here are not shared by the institute.</p>

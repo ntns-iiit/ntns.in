@@ -1,10 +1,7 @@
 {{ define "title" }}{{ .Title }}{{ end }}
 
 {{ define "main" }}
-  <header>
-    {{ $parentHref := .Params.parentHref | default "/" }}
-    {{ $parentLabel := .Params.parentLabel | default "Home" }}
-    <div class="eyebrow"><a href="/">ntns.in</a> &nbsp;·&nbsp; <a href="{{ $parentHref }}">← {{ $parentLabel }}</a> &nbsp;·&nbsp; {{ .Title }}</div>
+  <header class="page-header">
     <h1>{{ .Params.heading | safeHTML }}</h1>
     {{ with .Params.subtitle }}<p class="subtitle">{{ . }}</p>{{ end }}
   </header>

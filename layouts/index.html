@@ -1,63 +1,14 @@
 {{ define "title" }}{{ .Site.Title }}{{ end }}
 
 {{ define "main" }}
-  <header>
-    <div class="eyebrow">IIIT Hyderabad</div>
-    <h1>No <em>Tyrants</em>, No Silence</h1>
-    <p class="subtitle">We refuse to produce the technically excellent, politically inert professional the present arrangement depends on.</p>
-    <div class="meta">
-      <a href="mailto:we@ntns.in"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><clipPath id="env"><rect x="2" y="4" width="20" height="16" rx="2"/></clipPath></defs><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 7 10-7" clip-path="url(#env)"/></svg>we@ntns.in</a>
-      <a href="https://www.instagram.com/ntns.iiit" rel="me"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5.25"/><circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" stroke="none"/></svg>@ntns.iiit</a>
+  <div class="landing-hero">
+    <img src="/ntns-logo.svg" alt="NTNS Logo" class="hero-logo">
+    <h1 class="hero-title">No Tyrants, No Silence</h1>
+    <div class="hero-socials">
+      <a href="https://instagram.com/ntns.iiit" target="_blank">@ntns.iiit</a>
+      <a href="mailto:we@ntns.in">we@ntns.in</a>
     </div>
-  </header>
-
-  <ul class="landing-links">
-    <li>
-      <span class="link-label">Manifesto</span>
-      <a href="/silence/">Who Does Your <em>Silence</em> Protect?</a>
-      <div class="link-desc">On the Production of the Apolitical Engineer</div>
-    </li>
-    <li>
-      <span class="link-label">General</span>
-      <a href="/praxis/">NTNS: Praxis Meetings</a>
-      <div class="link-desc">Weekly general meetings</div>
-      {{ $praxis := site.GetPage "/praxis" }}
-      {{ if $praxis }}{{ with $praxis.Pages }}
-      <ul class="landing-sub">
-        {{ range .ByDate.Reverse }}
-        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-      </ul>
-      {{ end }}{{ end }}
-    </li>
-    <li>
-      <span class="link-label">Accountability</span>
-      <a href="/accountability/">NTNS: Administration Meetings</a>
-      <div class="link-desc">Weekly accountability meetings with the registrar</div>
-      {{ $accountability := site.GetPage "/accountability" }}
-      {{ if $accountability }}{{ with $accountability.Pages }}
-      <ul class="landing-sub">
-        {{ range .ByDate.Reverse }}
-        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-      </ul>
-      {{ end }}{{ end }}
-    </li>
-    <li>
-      <span class="link-label">Reading Circle</span>
-      <a href="/circle/">NTNS: Theory</a>
-      <div class="link-desc">To politicize the apolitical engineer</div>
-      {{ $circle := site.GetPage "/circle" }}
-      {{ if $circle }}{{ with $circle.Sections }}
-      <ul class="landing-sub">
-        {{ range .ByDate.Reverse }}
-        <li><a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a></li>
-        {{ end }}
-      </ul>
-      {{ end }}{{ end }}
-    </li>
-  </ul>
-
+  </div>
 {{ end }}
 
 {{ define "footer" }}

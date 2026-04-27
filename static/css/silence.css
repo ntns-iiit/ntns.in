@@ -24,11 +24,63 @@ body {
   padding: 4rem 2rem 6rem;
 }
 
-/* ── HEADER ── */
-header {
+/* ── GLOBAL HEADER ── */
+.site-header {
+  margin-bottom: 2rem;
+}
+
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(90, 80, 71, 0.1);
+}
+
+.home .site-nav {
+  justify-content: center;
+}
+
+.nav-logo img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  padding-bottom: 0.2rem;
+}
+
+.site-nav a:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
   border-bottom: 3px double var(--ink);
   padding-bottom: 1.5rem;
   margin-bottom: 2.5rem;
+}
+
+header {
+  /* Site header specific overrides if any */
 }
 
 .eyebrow {
@@ -355,6 +407,48 @@ footer a:hover { border-color: var(--red); }
   border: none;
   border-top: 1px solid var(--muted);
   margin: 2rem 0;
+}
+
+/* ── LANDING HERO ── */
+.landing-hero {
+  text-align: center;
+  padding: 8rem 0 10rem;
+  margin-bottom: 2rem;
+}
+
+.hero-logo {
+  height: 180px;
+  width: auto;
+  margin-bottom: 2.5rem;
+}
+
+.hero-title {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(2rem, 8vw, 4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 2rem;
+  line-height: 1.1;
+}
+
+.hero-socials {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.hero-socials a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.hero-socials a:hover {
+  border-color: var(--red);
 }
 
 .session-intro {

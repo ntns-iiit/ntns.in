@@ -1,8 +1,7 @@
 {{ define "title" }}{{ .Title | plainify }} · The Reading Circle{{ end }}
 
 {{ define "main" }}
-  <header>
-    <div class="eyebrow"><a href="/">ntns.in</a> &nbsp;·&nbsp; <a href="/circle/">← The Reading Circle</a> &nbsp;·&nbsp; Session {{ .Params.meeting }}</div>
+  <header class="page-header">
     <h1>{{ .Title | safeHTML }}</h1>
     {{ partial "meta-row.html" (slice .Params.venue (.Params.sessionDate | time.Format "2 January 2006") (.Params.sessionDate | time.Format "3:04 PM")) }}
   </header>
