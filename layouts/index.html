@@ -1,6 +1,14 @@
 {{ define "title" }}{{ .Site.Title }}{{ end }}
 
 {{ define "main" }}
+  {{ $manifesto := site.GetPage "/silence" }}
+  {{ $praxis := site.GetPage "/praxis" }}
+  {{ $accountability := site.GetPage "/accountability" }}
+  {{ $theory := site.GetPage "/circle" }}
+  {{ $praxisMeetings := first 3 (sort (where .Site.RegularPages "Type" "praxis") "Date" "desc") }}
+  {{ $accountabilityMeetings := first 3 (sort (where .Site.RegularPages "Type" "accountability") "Date" "desc") }}
+  {{ $sessions := first 3 (sort (where (where .Site.Pages "Kind" "section") "Type" "session") "Date" "desc") }}
+
   <div class="landing-hero">
     <img src="/ntns-logo.svg" alt="NTNS Logo" class="hero-logo">
     <h1 class="hero-title">No Tyrants, No Silence</h1>
@@ -9,6 +17,361 @@
       <a href="mailto:we@ntns.in">we@ntns.in</a>
     </div>
   </div>
+
+  <section id="landing-content" class="landing-content">
+    <section class="landing-preview" data-selected="manifesto" data-active="manifesto" aria-live="polite">
+      <div class="preview-stage">
+        <article class="preview-panel preview-manifesto is-active" data-panel="manifesto" aria-hidden="false">
+          {{ with $manifesto }}
+            <header class="preview-head">
+              <h2>{{ .Params.heading | safeHTML }}</h2>
+              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
+            </header>
+            <div class="preview-body">
+              {{ .Content }}
+              {{ if .Store.Get "inSection" }}</section>{{ end }}
+            </div>
+          {{ end }}
+        </article>
+
+        <article class="preview-panel preview-praxis" data-panel="praxis" aria-hidden="true">
+          {{ with $praxis }}
+            <header class="preview-head">
+              <h2>{{ .Params.heading | safeHTML }}</h2>
+              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
+            </header>
+          {{ end }}
+          <div class="preview-body">
+            <p>Recent notes from weekly general meetings.</p>
+            <ul class="preview-list">
+              {{ range $praxisMeetings }}
+                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+              {{ end }}
+            </ul>
+          </div>
+        </article>
+
+        <article class="preview-panel preview-accountability" data-panel="accountability" aria-hidden="true">
+          {{ with $accountability }}
+            <header class="preview-head">
+              <h2>{{ .Params.heading | safeHTML }}</h2>
+              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
+            </header>
+          {{ end }}
+          <div class="preview-body">
+            <p>Public records and follow-up from accountability meetings.</p>
+            <ul class="preview-list">
+              {{ range $accountabilityMeetings }}
+                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+              {{ end }}
+            </ul>
+          </div>
+        </article>
+
+        <article class="preview-panel preview-theory" data-panel="theory" aria-hidden="true">
+          {{ with $theory }}
+            <header class="preview-head">
+              <h2>{{ .Title | safeHTML }}</h2>
+            </header>
+            <div class="preview-body">
+              {{ .Content }}
+            </div>
+          {{ end }}
+          <div class="preview-body">
+            <h3 class="preview-list-title">Latest Sessions</h3>
+            <ul class="preview-list">
+              {{ range $sessions }}
+                <li>
+                  <a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
+                  {{ with .Date }}<time class="session-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2 Jan 2006" }}</time>{{ end }}
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+  </section>
+
+  <script>
+    (() => {
+      const preview = document.querySelector('.landing-preview');
+      const landingContent = document.querySelector('#landing-content');
+      const hero = document.querySelector('.landing-hero');
+      const siteHeader = document.querySelector('.site-header');
+      const homeLogo = document.querySelector('.nav-logo-home');
+      if (!preview) return;
+
+      const navLinks = Array.from(document.querySelectorAll('.site-nav a[data-panel]'));
+      const panels = Array.from(preview.querySelectorAll('.preview-panel[data-panel]'));
+      const previewStage = preview.querySelector('.preview-stage');
+      const panelMap = new Map(panels.map((panel) => [panel.dataset.panel, panel]));
+      let selectedPanel = preview.dataset.selected || 'manifesto';
+      let isCollapsed = document.body.classList.contains('home-collapsed');
+      let navInteracting = false;
+      let settleScrollTimer = null;
+        let hoverTimer = null;
+        let pendingHover = null;
+        const HOVER_DEBOUNCE_MS = 350;
+        let resetTimer = null;
+        const RESET_DEBOUNCE_MS = 180;
+        const panelScrollPos = new Map();
+
+      const parseTimeToMs = (timeValue) => {
+        const value = timeValue.trim();
+        if (value.endsWith('ms')) return Number.parseFloat(value);
+        if (value.endsWith('s')) return Number.parseFloat(value) * 1000;
+        return 0;
+      };
+
+      const getPanelSlideMs = () => {
+        if (!preview) return 360;
+        const panel = preview.querySelector('.preview-panel');
+        if (!panel) return 360;
+        const styles = window.getComputedStyle(panel);
+        const durations = styles.transitionDuration.split(',').map(parseTimeToMs);
+        const delays = styles.transitionDelay.split(',').map(parseTimeToMs);
+        const longest = durations.reduce((max, duration, index) => {
+          const delay = delays[index] ?? delays[delays.length - 1] ?? 0;
+          return Math.max(max, duration + delay);
+        }, 0);
+        return Math.max(100, Math.round(longest));
+      };
+
+      const getHeroCollapseMs = () => {
+        if (!hero) return 560;
+        const styles = window.getComputedStyle(hero);
+        const durations = styles.transitionDuration.split(',').map(parseTimeToMs);
+        const delays = styles.transitionDelay.split(',').map(parseTimeToMs);
+        const longest = durations.reduce((max, duration, index) => {
+          const delay = delays[index] ?? delays[delays.length - 1] ?? 0;
+          return Math.max(max, duration + delay);
+        }, 0);
+        return Math.max(120, Math.round(longest));
+      };
+
+      const updateScrollState = () => {
+        if (navInteracting && isCollapsed) {
+          document.body.classList.add('home-collapsed');
+          return;
+        }
+
+        const y = window.scrollY || window.pageYOffset || 0;
+        const collapseAt = 28;
+        const expandAt = 0;
+
+        if (!isCollapsed && y >= collapseAt) {
+          isCollapsed = true;
+        } else if (isCollapsed && y <= expandAt) {
+          isCollapsed = false;
+        }
+
+        document.body.classList.toggle('home-collapsed', isCollapsed);
+      };
+
+      const scrollToLandingContent = (behavior = 'smooth') => {
+        if (!landingContent) return;
+        const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
+        const targetTop = window.scrollY + landingContent.getBoundingClientRect().top - headerHeight;
+        const maxTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const clampedTop = Math.min(Math.max(0, targetTop), maxTop);
+        window.scrollTo({ top: clampedTop, behavior });
+      };
+
+      const setNavSelection = () => {
+        navLinks.forEach((link) => {
+          const isSelected = link.dataset.panel === selectedPanel;
+          link.classList.toggle('is-selected', isSelected);
+          if (isSelected) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      };
+
+      const measurePanelHeight = (panel) => {
+        const prevPosition = panel.style.position;
+        const prevVisibility = panel.style.visibility;
+        const prevOpacity = panel.style.opacity;
+        const prevPointerEvents = panel.style.pointerEvents;
+        const prevDisplay = panel.style.display;
+
+        panel.style.position = 'relative';
+        panel.style.visibility = 'hidden';
+        panel.style.opacity = '0';
+        panel.style.pointerEvents = 'none';
+        panel.style.display = 'block';
+
+        const height = panel.scrollHeight;
+
+        panel.style.position = prevPosition;
+        panel.style.visibility = prevVisibility;
+        panel.style.opacity = prevOpacity;
+        panel.style.pointerEvents = prevPointerEvents;
+        panel.style.display = prevDisplay;
+
+        return height;
+      };
+
+      const stabilizePreviewHeight = () => {
+        if (!previewStage || panels.length === 0) return;
+        const maxPanelHeight = panels.reduce((max, panel) => {
+          return Math.max(max, measurePanelHeight(panel));
+        }, 0);
+        if (maxPanelHeight > 0) {
+          previewStage.style.minHeight = `${Math.ceil(maxPanelHeight)}px`;
+        }
+      };
+
+      const showPanel = (panelKey, preserveViewportOffset = false) => {
+        if (!panelMap.has(panelKey)) return;
+
+        let previousOffset = null;
+        if (preserveViewportOffset) {
+          const activePanel = panels.find((panel) => panel.classList.contains('is-active'));
+          if (activePanel) {
+            const rect = activePanel.getBoundingClientRect();
+            const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+            if (inView) {
+              // Keep the same viewport offset within the preview content
+              // when switching panels on hover/focus.
+              previousOffset = -rect.top;
+            }
+          }
+        }
+
+        if (isCollapsed) {
+          const currentPanel = preview.dataset.active;
+          if (currentPanel) panelScrollPos.set(currentPanel, window.scrollY);
+        }
+
+        preview.dataset.active = panelKey;
+
+        panels.forEach((panel) => {
+          const isActive = panel.dataset.panel === panelKey;
+          panel.classList.toggle('is-active', isActive);
+          panel.setAttribute('aria-hidden', String(!isActive));
+        });
+
+        if (isCollapsed) {
+          const saved = panelScrollPos.get(panelKey);
+          if (saved != null) {
+            window.scrollTo({ top: saved, behavior: 'auto' });
+          } else {
+            const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
+            const targetTop = window.scrollY + preview.getBoundingClientRect().top - headerHeight;
+            window.scrollTo({ top: Math.max(0, targetTop), behavior: 'auto' });
+          }
+          return;
+        }
+
+        if (preserveViewportOffset !== true || previousOffset === null) return;
+
+        const nextPanel = panelMap.get(panelKey);
+        if (!nextPanel) return;
+        const nextTop = window.scrollY + nextPanel.getBoundingClientRect().top;
+        const maxTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const targetTop = Math.min(Math.max(0, nextTop + previousOffset), maxTop);
+        window.scrollTo({ top: targetTop, behavior: 'auto' });
+      };
+
+      const resetToSelected = () => showPanel(selectedPanel);
+
+      navLinks.forEach((link) => {
+        const panelKey = link.dataset.panel;
+          link.addEventListener('mouseenter', () => {
+            navInteracting = true;
+            if (resetTimer) { window.clearTimeout(resetTimer); resetTimer = null; }
+            if (hoverTimer) window.clearTimeout(hoverTimer);
+            pendingHover = panelKey;
+            hoverTimer = window.setTimeout(() => {
+              showPanel(pendingHover, !isCollapsed);
+              hoverTimer = null;
+              pendingHover = null;
+            }, HOVER_DEBOUNCE_MS);
+          });
+          link.addEventListener('mouseleave', () => {
+            if (hoverTimer) {
+              window.clearTimeout(hoverTimer);
+              hoverTimer = null;
+              pendingHover = null;
+            }
+            if (resetTimer) window.clearTimeout(resetTimer);
+            resetTimer = window.setTimeout(() => {
+              resetToSelected();
+              resetTimer = null;
+            }, RESET_DEBOUNCE_MS);
+          });
+          link.addEventListener('focus', () => {
+            navInteracting = true;
+            if (resetTimer) { window.clearTimeout(resetTimer); resetTimer = null; }
+            if (hoverTimer) {
+              window.clearTimeout(hoverTimer);
+              hoverTimer = null;
+              pendingHover = null;
+            }
+            showPanel(panelKey, !isCollapsed);
+          });
+        link.addEventListener('click', (event) => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+          // Keep URL-changing navigation behavior, but ask destination pages
+          // to auto-scroll to content once loaded.
+          try {
+            window.sessionStorage.setItem('ntns-nav-scroll', 'from-home-nav');
+          } catch (_) {
+            // Ignore storage errors and allow normal navigation.
+          }
+        });
+      });
+
+      homeLogo?.addEventListener('click', (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        if (settleScrollTimer) {
+          window.clearTimeout(settleScrollTimer);
+          settleScrollTimer = null;
+        }
+        isCollapsed = false;
+        document.body.classList.remove('home-collapsed');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      const siteNavList = document.querySelector('.site-nav ul');
+      siteNavList?.addEventListener('mouseleave', () => {
+        navInteracting = false;
+        if (resetTimer) window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(() => {
+          resetToSelected();
+          resetTimer = null;
+          updateScrollState();
+        }, RESET_DEBOUNCE_MS);
+      });
+
+      siteNavList?.addEventListener('focusout', (event) => {
+        if (event.currentTarget.contains(event.relatedTarget)) return;
+        navInteracting = false;
+        if (resetTimer) window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(() => {
+          resetToSelected();
+          resetTimer = null;
+          updateScrollState();
+        }, RESET_DEBOUNCE_MS);
+      });
+
+      setNavSelection();
+      showPanel(selectedPanel);
+      stabilizePreviewHeight();
+      updateScrollState();
+      window.addEventListener('scroll', updateScrollState, { passive: true });
+      window.addEventListener('resize', () => {
+        stabilizePreviewHeight();
+        updateScrollState();
+      });
+      window.setTimeout(stabilizePreviewHeight, 120);
+    })();
+  </script>
 {{ end }}
 
 {{ define "footer" }}

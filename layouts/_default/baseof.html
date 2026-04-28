@@ -8,26 +8,315 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <script defer src="https://stats.ntns.in/script.js" data-website-id="0e5e7dcd-ccc1-440c-a946-4ead7736d637"></script>
 </head>
-<body class="{{ if .IsHome }}home{{ end }}">
+<body class="{{ if .IsHome }}home {{ end }}has-hero">
 <div class="page">
+  {{ $manifesto := site.GetPage "/silence" }}
+  {{ $praxis := site.GetPage "/praxis" }}
+  {{ $accountability := site.GetPage "/accountability" }}
+  {{ $theory := site.GetPage "/circle" }}
+  {{ $praxisMeetings := first 3 (sort (where .Site.RegularPages "Type" "praxis") "Date" "desc") }}
+  {{ $accountabilityMeetings := first 3 (sort (where .Site.RegularPages "Type" "accountability") "Date" "desc") }}
+  {{ $sessions := first 3 (sort (where (where .Site.Pages "Kind" "section") "Type" "session") "Date" "desc") }}
+  {{ $selectedPanel := "manifesto" }}
+  {{ if eq .Section "praxis" }}
+    {{ $selectedPanel = "praxis" }}
+  {{ else if eq .Section "accountability" }}
+    {{ $selectedPanel = "accountability" }}
+  {{ else if eq .Section "circle" }}
+    {{ $selectedPanel = "theory" }}
+  {{ else if and (eq .Section "silence") (not .IsHome) }}
+    {{ $selectedPanel = "manifesto" }}
+  {{ end }}
   <header class="site-header">
     <nav class="site-nav">
-      {{ if not .IsHome }}
-      <a href="/" class="nav-logo">
+      <a href="/" class="nav-logo nav-logo-home">
         <img src="/ntns-logo.svg" alt="NTNS Logo">
       </a>
-      {{ end }}
       <ul>
-        <li><a href="/silence/">Manifesto</a></li>
-        <li><a href="/praxis/">Praxis</a></li>
-        <li><a href="/accountability/">Accountability</a></li>
-        <li><a href="/circle/">Theory</a></li>
+        <li><a href="/silence/" class="nav-manifesto{{ if .IsHome }} is-selected{{ end }}" data-panel="manifesto"{{ if .IsHome }} aria-current="page"{{ end }}>Manifesto</a></li>
+        <li><a href="/praxis/" class="nav-praxis" data-panel="praxis">Praxis</a></li>
+        <li><a href="/accountability/" class="nav-accountability" data-panel="accountability">Accountability</a></li>
+        <li><a href="/circle/" class="nav-theory" data-panel="theory">Theory</a></li>
       </ul>
     </nav>
   </header>
+  {{ if not .IsHome }}
+    <div class="landing-hero landing-hero-inline">
+      <a href="/" class="hero-logo-link" aria-label="Home">
+        <img src="/ntns-logo.svg" alt="NTNS Logo" class="hero-logo">
+      </a>
+      <a href="/" class="hero-title hero-home-link">No Tyrants, No Silence</a>
+      <div class="hero-socials">
+        <a href="https://instagram.com/ntns.iiit" target="_blank">@ntns.iiit</a>
+        <a href="mailto:we@ntns.in">we@ntns.in</a>
+      </div>
+    </div>
+    <section class="nav-preview landing-preview" data-selected="{{ $selectedPanel }}" data-active="{{ $selectedPanel }}" aria-live="polite">
+      <div class="preview-stage">
+        <article class="preview-panel preview-manifesto{{ if eq $selectedPanel "manifesto" }} is-active{{ end }}" data-panel="manifesto" aria-hidden="{{ if eq $selectedPanel "manifesto" }}false{{ else }}true{{ end }}">
+          {{ with $manifesto }}
+            <header class="preview-head">
+              <h2>{{ .Params.heading | safeHTML }}</h2>
+              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
+            </header>
+          {{ end }}
+          <div class="preview-body">
+            <p>A programme for student political work: why organization, theory, and accountability belong together.</p>
+          </div>
+        </article>
+
+        <article class="preview-panel preview-praxis{{ if eq $selectedPanel "praxis" }} is-active{{ end }}" data-panel="praxis" aria-hidden="{{ if eq $selectedPanel "praxis" }}false{{ else }}true{{ end }}">
+          {{ with $praxis }}
+            <header class="preview-head">
+              <h2>{{ .Params.heading | safeHTML }}</h2>
+              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
+            </header>
+          {{ end }}
+          <div class="preview-body">
+            <ul class="preview-list">
+              {{ range $praxisMeetings }}
+                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+              {{ end }}
+            </ul>
+          </div>
+        </article>
+
+        <article class="preview-panel preview-accountability{{ if eq $selectedPanel "accountability" }} is-active{{ end }}" data-panel="accountability" aria-hidden="{{ if eq $selectedPanel "accountability" }}false{{ else }}true{{ end }}">
+          {{ with $accountability }}
+            <header class="preview-head">
+              <h2>{{ .Params.heading | safeHTML }}</h2>
+              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
+            </header>
+          {{ end }}
+          <div class="preview-body">
+            <ul class="preview-list">
+              {{ range $accountabilityMeetings }}
+                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+              {{ end }}
+            </ul>
+          </div>
+        </article>
+
+        <article class="preview-panel preview-theory{{ if eq $selectedPanel "theory" }} is-active{{ end }}" data-panel="theory" aria-hidden="{{ if eq $selectedPanel "theory" }}false{{ else }}true{{ end }}">
+          {{ with $theory }}
+            <header class="preview-head">
+              <h2>{{ .Title | safeHTML }}</h2>
+            </header>
+          {{ end }}
+          <div class="preview-body">
+            <h3 class="preview-list-title">Latest Sessions</h3>
+            <ul class="preview-list">
+              {{ range $sessions }}
+                <li>
+                  <a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
+                  {{ with .Date }}<time class="session-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2 Jan 2006" }}</time>{{ end }}
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+  {{ end }}
+  <div id="page-content-start"></div>
   {{ block "main" . }}{{ end }}
   {{ block "footer" . }}{{ end }}
   <p class="disclaimer">We are an independent student body. Views expressed here are not shared by the institute.</p>
 </div>
+{{ if not .IsHome }}
+  <script>
+    (() => {
+      const preview = document.querySelector('.nav-preview');
+      if (!preview) return;
+      const hero = document.querySelector('.landing-hero-inline');
+      const siteHeader = document.querySelector('.site-header');
+
+      const navLinks = Array.from(document.querySelectorAll('.site-nav a[data-panel]'));
+      const panels = Array.from(preview.querySelectorAll('.preview-panel[data-panel]'));
+      const panelMap = new Map(panels.map((panel) => [panel.dataset.panel, panel]));
+      let selectedPanel = preview.dataset.selected || 'manifesto';
+      let isCollapsed = document.body.classList.contains('home-collapsed');
+      let navInteracting = false;
+      let collapseGuard = false;
+      let hoverTimer = null;
+      let pendingHover = null;
+      let resetTimer = null;
+      const HOVER_DEBOUNCE_MS = 220;
+      const RESET_DEBOUNCE_MS = 180;
+
+      const updateScrollState = () => {
+        if (navInteracting && isCollapsed) {
+          document.body.classList.add('home-collapsed');
+          return;
+        }
+
+        // Use scroll position with hysteresis so hover-preview layout changes
+        // cannot cause collapsed/expanded flicker while already scrolled down.
+        const y = window.scrollY || window.pageYOffset || 0;
+        const collapseAt = 28;
+        const expandAt = 0;
+
+        if (!isCollapsed && y >= collapseAt) {
+          isCollapsed = true;
+          collapseGuard = true;
+          window.setTimeout(() => { collapseGuard = false; }, 600);
+        } else if (isCollapsed && y <= expandAt && !collapseGuard) {
+          isCollapsed = false;
+        }
+
+        document.body.classList.toggle('home-collapsed', isCollapsed);
+      };
+
+      const setNavSelection = () => {
+        navLinks.forEach((link) => {
+          const isSelected = link.dataset.panel === selectedPanel;
+          link.classList.toggle('is-selected', isSelected);
+          if (isSelected) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      };
+
+      const showPanel = (panelKey) => {
+        if (!panelMap.has(panelKey)) return;
+        preview.dataset.active = panelKey;
+
+        panels.forEach((panel) => {
+          const isActive = panel.dataset.panel === panelKey;
+          panel.classList.toggle('is-active', isActive);
+          panel.setAttribute('aria-hidden', String(!isActive));
+        });
+      };
+
+      const openPreview = () => {
+        navInteracting = true;
+        setPreviewOffset();
+        preview.classList.add('is-open');
+        updateScrollState();
+      };
+
+      const closePreview = () => {
+        preview.classList.remove('is-open');
+        navInteracting = false;
+        updateScrollState();
+      };
+
+      const setPreviewOffset = () => {
+        if (!siteHeader) return;
+        const headerHeight = Math.ceil(siteHeader.getBoundingClientRect().height);
+        preview.style.setProperty('--preview-top', `${headerHeight + 8}px`);
+      };
+
+      const resetToSelected = () => showPanel(selectedPanel);
+
+      navLinks.forEach((link) => {
+        const panelKey = link.dataset.panel;
+
+        link.addEventListener('mouseenter', () => {
+          openPreview();
+          if (resetTimer) {
+            window.clearTimeout(resetTimer);
+            resetTimer = null;
+          }
+          if (hoverTimer) window.clearTimeout(hoverTimer);
+          pendingHover = panelKey;
+          hoverTimer = window.setTimeout(() => {
+            showPanel(pendingHover);
+            hoverTimer = null;
+            pendingHover = null;
+          }, HOVER_DEBOUNCE_MS);
+        });
+
+        link.addEventListener('mouseleave', () => {
+          if (hoverTimer) {
+            window.clearTimeout(hoverTimer);
+            hoverTimer = null;
+            pendingHover = null;
+          }
+          if (resetTimer) window.clearTimeout(resetTimer);
+          resetTimer = window.setTimeout(() => {
+            resetToSelected();
+            resetTimer = null;
+          }, RESET_DEBOUNCE_MS);
+        });
+
+        link.addEventListener('focus', () => {
+          openPreview();
+          if (hoverTimer) {
+            window.clearTimeout(hoverTimer);
+            hoverTimer = null;
+            pendingHover = null;
+          }
+          showPanel(panelKey);
+        });
+
+      });
+
+      const clearReset = () => {
+        if (resetTimer) {
+          window.clearTimeout(resetTimer);
+          resetTimer = null;
+        }
+      };
+
+      const scheduleReset = () => {
+        clearReset();
+        resetTimer = window.setTimeout(() => {
+          resetToSelected();
+          closePreview();
+          resetTimer = null;
+        }, RESET_DEBOUNCE_MS);
+      };
+
+      const siteNav = document.querySelector('.site-nav');
+      siteNav?.addEventListener('mouseenter', () => {
+        navInteracting = true;
+      });
+      siteNav?.addEventListener('mouseleave', scheduleReset);
+      preview.addEventListener('mouseleave', scheduleReset);
+      preview.addEventListener('mouseenter', () => {
+        openPreview();
+        clearReset();
+      });
+
+      const maybeScrollToContent = () => {
+        let shouldScroll = false;
+        try {
+          shouldScroll = window.sessionStorage.getItem('ntns-nav-scroll') === 'from-home-nav';
+          if (shouldScroll) {
+            window.sessionStorage.removeItem('ntns-nav-scroll');
+          }
+        } catch (_) {
+          shouldScroll = false;
+        }
+
+        if (!shouldScroll) return;
+        const contentStart = document.querySelector('#page-content-start');
+        if (!contentStart) return;
+        window.requestAnimationFrame(() => {
+          const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
+          const targetTop = window.scrollY + contentStart.getBoundingClientRect().top - headerHeight;
+          const maxTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+          const clampedTop = Math.min(Math.max(0, targetTop), maxTop);
+          window.scrollTo({ top: clampedTop, behavior: 'smooth' });
+        });
+      };
+
+      setNavSelection();
+      showPanel(selectedPanel);
+      closePreview();
+      setPreviewOffset();
+      updateScrollState();
+      maybeScrollToContent();
+      window.addEventListener('scroll', updateScrollState, { passive: true });
+      window.addEventListener('resize', () => {
+        setPreviewOffset();
+        updateScrollState();
+      });
+    })();
+  </script>
+{{ end }}
 </body>
 </html>
