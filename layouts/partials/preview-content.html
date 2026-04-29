@@ -1,0 +1,36 @@
+{{- /*
+  Renders the body of a nav preview panel. Inputs:
+    page       — the section page to preview (required)
+    items      — optional slice of pages to list under the body
+    itemsTitle — optional heading shown above the items list
+    full       — if true, render full .Content; otherwise .Summary
+*/ -}}
+{{- $page := .page -}}
+{{- $items := .items -}}
+{{- $itemsTitle := .itemsTitle -}}
+{{- $full := .full -}}
+{{- with $page -}}
+  <header class="preview-head">
+    <h2>{{ .Params.heading | default .Title | safeHTML }}</h2>
+    {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
+  </header>
+  <div class="preview-body">
+    {{- if $full -}}
+      {{ .Content }}
+      {{- if .Store.Get "inSection" }}</section>{{ end -}}
+    {{- else -}}
+      {{ .Summary }}
+    {{- end }}
+    {{- with $items }}
+      {{ with $itemsTitle }}<h3 class="preview-list-title">{{ . }}</h3>{{ end }}
+      <ul class="preview-list">
+        {{ range . }}
+          <li>
+            <a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
+            {{ with .Date }}<time class="session-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2 Jan 2006" }}</time>{{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    {{- end }}
+  </div>
+{{- end -}}

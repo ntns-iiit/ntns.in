@@ -9,6 +9,13 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  /* Reserve space for the sticky site-header on any in-page or anchor scroll
+     so scrolled-to elements (e.g. page titles) clear the navbar instead of
+     ending up underneath it. */
+  scroll-padding-top: 7rem;
+}
+
 body {
   background: var(--paper);
   color: var(--ink);
@@ -21,7 +28,7 @@ body {
 .page {
   max-width: 68ch;
   margin: 0 auto;
-  padding: 4rem 2rem 6rem;
+  padding: 0rem 2rem 6rem;
 }
 
 .has-hero:not(.home) .page {
@@ -569,32 +576,37 @@ footer a:hover { border-color: var(--red); }
   font-size: 1.02rem;
 }
 
-/* Inner pages: preview reads like a sheet, not a floating app panel */
+/* Inner pages: preview is always a floating overlay — never sits in the
+   page flow — so it can't appear under the hero. The closed state is just
+   the same overlay with max-height/opacity collapsed. */
 .has-hero:not(.home) .nav-preview {
-  border-top: 0;
-  background: color-mix(in srgb, var(--paper) 95%, #fff 5%);
-  border-bottom: 1px solid rgba(90, 80, 71, 0.18);
-}
-
-.has-hero:not(.home) .nav-preview.is-open {
-  margin-top: 0.7rem;
-  padding: 0.95rem 0 0.6rem;
-  max-height: 30rem;
-}
-
-/* When collapsed, render preview as an overlay so hover does not reflow the page. */
-.home-collapsed.has-hero:not(.home) .nav-preview.is-open {
   position: fixed;
   top: var(--preview-top, 5.25rem);
   left: 50%;
   transform: translateX(-50%);
   width: min(86ch, calc(100vw - 4rem));
-  margin-top: 0;
+  margin: 0;
+  padding: 0 1.1rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 25;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+  transition: max-height 0.22s ease, opacity 0.18s ease, padding 0.22s ease,
+              box-shadow 0.22s ease, border-color 0.22s ease,
+              background-color 0.22s ease;
+}
+
+.has-hero:not(.home) .nav-preview.is-open {
   padding: 0.95rem 1.1rem 0.7rem;
   max-height: 30rem;
+  opacity: 1;
   overflow: auto;
-  z-index: 25;
-  border: 1px solid rgba(90, 80, 71, 0.22);
+  pointer-events: auto;
+  border-color: rgba(90, 80, 71, 0.22);
   background: color-mix(in srgb, var(--paper) 97%, #fff 3%);
   box-shadow: 0 12px 28px rgba(13, 12, 11, 0.08);
 }
@@ -873,7 +885,12 @@ footer a:hover { border-color: var(--red); }
 @media print {
   .eyebrow,
   footer,
-  .download-bar {
+  .download-bar,
+  .site-header,
+  .landing-hero,
+  .landing-hero-inline,
+  .disclaimer,
+  .nav-preview {
     display: none;
   }
 

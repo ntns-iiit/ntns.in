@@ -17,3 +17,4 @@ type: "praxis"
 date: 2026-04-24
 ---
 
+General biweekly meetings discussing campus issues, and broader campaigns that we as a technical institute can contribute to. Focused on actual praxis.

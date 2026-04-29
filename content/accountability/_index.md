@@ -16,3 +16,4 @@ date: 2026-04-24
 aliases:
   - "/silence/admin/"
 ---
+The Registrar has agreed to meet with concerned students weekly for an hour to instill confidence in the administration and keep them accountable.

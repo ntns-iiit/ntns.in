@@ -54,66 +54,19 @@
     <section class="nav-preview landing-preview" data-selected="{{ $selectedPanel }}" data-active="{{ $selectedPanel }}" aria-live="polite">
       <div class="preview-stage">
         <article class="preview-panel preview-manifesto{{ if eq $selectedPanel "manifesto" }} is-active{{ end }}" data-panel="manifesto" aria-hidden="{{ if eq $selectedPanel "manifesto" }}false{{ else }}true{{ end }}">
-          {{ with $manifesto }}
-            <header class="preview-head">
-              <h2>{{ .Params.heading | safeHTML }}</h2>
-              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
-            </header>
-          {{ end }}
-          <div class="preview-body">
-            <p>A programme for student political work: why organization, theory, and accountability belong together.</p>
-          </div>
+          {{ partial "preview-content.html" (dict "page" $manifesto) }}
         </article>
 
         <article class="preview-panel preview-praxis{{ if eq $selectedPanel "praxis" }} is-active{{ end }}" data-panel="praxis" aria-hidden="{{ if eq $selectedPanel "praxis" }}false{{ else }}true{{ end }}">
-          {{ with $praxis }}
-            <header class="preview-head">
-              <h2>{{ .Params.heading | safeHTML }}</h2>
-              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
-            </header>
-          {{ end }}
-          <div class="preview-body">
-            <ul class="preview-list">
-              {{ range $praxisMeetings }}
-                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-              {{ end }}
-            </ul>
-          </div>
+          {{ partial "preview-content.html" (dict "page" $praxis "items" $praxisMeetings) }}
         </article>
 
         <article class="preview-panel preview-accountability{{ if eq $selectedPanel "accountability" }} is-active{{ end }}" data-panel="accountability" aria-hidden="{{ if eq $selectedPanel "accountability" }}false{{ else }}true{{ end }}">
-          {{ with $accountability }}
-            <header class="preview-head">
-              <h2>{{ .Params.heading | safeHTML }}</h2>
-              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
-            </header>
-          {{ end }}
-          <div class="preview-body">
-            <ul class="preview-list">
-              {{ range $accountabilityMeetings }}
-                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-              {{ end }}
-            </ul>
-          </div>
+          {{ partial "preview-content.html" (dict "page" $accountability "items" $accountabilityMeetings) }}
         </article>
 
         <article class="preview-panel preview-theory{{ if eq $selectedPanel "theory" }} is-active{{ end }}" data-panel="theory" aria-hidden="{{ if eq $selectedPanel "theory" }}false{{ else }}true{{ end }}">
-          {{ with $theory }}
-            <header class="preview-head">
-              <h2>{{ .Title | safeHTML }}</h2>
-            </header>
-          {{ end }}
-          <div class="preview-body">
-            <h3 class="preview-list-title">Latest Sessions</h3>
-            <ul class="preview-list">
-              {{ range $sessions }}
-                <li>
-                  <a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
-                  {{ with .Date }}<time class="session-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2 Jan 2006" }}</time>{{ end }}
-                </li>
-              {{ end }}
-            </ul>
-          </div>
+          {{ partial "preview-content.html" (dict "page" $theory "items" $sessions "itemsTitle" "Latest Sessions") }}
         </article>
       </div>
     </section>
@@ -281,27 +234,32 @@
         clearReset();
       });
 
-      const maybeScrollToContent = () => {
-        let shouldScroll = false;
-        try {
-          shouldScroll = window.sessionStorage.getItem('ntns-nav-scroll') === 'from-home-nav';
-          if (shouldScroll) {
-            window.sessionStorage.removeItem('ntns-nav-scroll');
-          }
-        } catch (_) {
-          shouldScroll = false;
-        }
-
-        if (!shouldScroll) return;
+      const scrollToContent = () => {
         const contentStart = document.querySelector('#page-content-start');
         if (!contentStart) return;
-        window.requestAnimationFrame(() => {
-          const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
-          const targetTop = window.scrollY + contentStart.getBoundingClientRect().top - headerHeight;
-          const maxTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-          const clampedTop = Math.min(Math.max(0, targetTop), maxTop);
-          window.scrollTo({ top: clampedTop, behavior: 'smooth' });
-        });
+        const doScroll = () => {
+          // Pre-collapse the hero without its transition so layout is stable
+          // while the smooth scroll runs. Otherwise the hero collapses mid-
+          // scroll once scrollY crosses the threshold, the title shifts up,
+          // and the scrollIntoView target overshoots past it.
+          if (hero) {
+            const prev = hero.style.transition;
+            hero.style.transition = 'none';
+            document.body.classList.add('home-collapsed');
+            isCollapsed = true;
+            hero.getBoundingClientRect();
+            hero.style.transition = prev;
+          } else {
+            document.body.classList.add('home-collapsed');
+            isCollapsed = true;
+          }
+          contentStart.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => window.requestAnimationFrame(doScroll));
+        } else {
+          window.requestAnimationFrame(doScroll);
+        }
       };
 
       setNavSelection();
@@ -309,7 +267,7 @@
       closePreview();
       setPreviewOffset();
       updateScrollState();
-      maybeScrollToContent();
+      scrollToContent();
       window.addEventListener('scroll', updateScrollState, { passive: true });
       window.addEventListener('resize', () => {
         setPreviewOffset();

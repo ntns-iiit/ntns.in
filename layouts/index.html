@@ -22,72 +22,19 @@
     <section class="landing-preview" data-selected="manifesto" data-active="manifesto" aria-live="polite">
       <div class="preview-stage">
         <article class="preview-panel preview-manifesto is-active" data-panel="manifesto" aria-hidden="false">
-          {{ with $manifesto }}
-            <header class="preview-head">
-              <h2>{{ .Params.heading | safeHTML }}</h2>
-              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
-            </header>
-            <div class="preview-body">
-              {{ .Content }}
-              {{ if .Store.Get "inSection" }}</section>{{ end }}
-            </div>
-          {{ end }}
+          {{ partial "preview-content.html" (dict "page" $manifesto "full" true) }}
         </article>
 
         <article class="preview-panel preview-praxis" data-panel="praxis" aria-hidden="true">
-          {{ with $praxis }}
-            <header class="preview-head">
-              <h2>{{ .Params.heading | safeHTML }}</h2>
-              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
-            </header>
-          {{ end }}
-          <div class="preview-body">
-            <p>Recent notes from weekly general meetings.</p>
-            <ul class="preview-list">
-              {{ range $praxisMeetings }}
-                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-              {{ end }}
-            </ul>
-          </div>
+          {{ partial "preview-content.html" (dict "page" $praxis "items" $praxisMeetings) }}
         </article>
 
         <article class="preview-panel preview-accountability" data-panel="accountability" aria-hidden="true">
-          {{ with $accountability }}
-            <header class="preview-head">
-              <h2>{{ .Params.heading | safeHTML }}</h2>
-              {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
-            </header>
-          {{ end }}
-          <div class="preview-body">
-            <p>Public records and follow-up from accountability meetings.</p>
-            <ul class="preview-list">
-              {{ range $accountabilityMeetings }}
-                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-              {{ end }}
-            </ul>
-          </div>
+          {{ partial "preview-content.html" (dict "page" $accountability "items" $accountabilityMeetings) }}
         </article>
 
         <article class="preview-panel preview-theory" data-panel="theory" aria-hidden="true">
-          {{ with $theory }}
-            <header class="preview-head">
-              <h2>{{ .Title | safeHTML }}</h2>
-            </header>
-            <div class="preview-body">
-              {{ .Content }}
-            </div>
-          {{ end }}
-          <div class="preview-body">
-            <h3 class="preview-list-title">Latest Sessions</h3>
-            <ul class="preview-list">
-              {{ range $sessions }}
-                <li>
-                  <a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
-                  {{ with .Date }}<time class="session-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2 Jan 2006" }}</time>{{ end }}
-                </li>
-              {{ end }}
-            </ul>
-          </div>
+          {{ partial "preview-content.html" (dict "page" $theory "full" true "items" $sessions "itemsTitle" "Latest Sessions") }}
         </article>
       </div>
     </section>
@@ -313,17 +260,6 @@
             }
             showPanel(panelKey, !isCollapsed);
           });
-        link.addEventListener('click', (event) => {
-          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-
-          // Keep URL-changing navigation behavior, but ask destination pages
-          // to auto-scroll to content once loaded.
-          try {
-            window.sessionStorage.setItem('ntns-nav-scroll', 'from-home-nav');
-          } catch (_) {
-            // Ignore storage errors and allow normal navigation.
-          }
-        });
       });
 
       homeLogo?.addEventListener('click', (event) => {
