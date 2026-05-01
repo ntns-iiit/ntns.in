@@ -58,13 +58,16 @@
       let selectedPanel = preview.dataset.selected || 'manifesto';
       let isCollapsed = document.body.classList.contains('home-collapsed');
       let navInteracting = false;
-      let settleScrollTimer = null;
-        let hoverTimer = null;
-        let pendingHover = null;
-        const HOVER_DEBOUNCE_MS = 350;
-        let resetTimer = null;
-        const RESET_DEBOUNCE_MS = 180;
-        const panelScrollPos = new Map();
+      let hoverTimer = null;
+      let pendingHover = null;
+      const HOVER_DEBOUNCE_MS = 350;
+      let resetTimer = null;
+      const RESET_DEBOUNCE_MS = 180;
+      const panelScrollPos = new Map();
+      let touchStartY = null;
+      let snapFrame = null;
+      let isSnapping = false;
+      let previousSnapOverflowAnchor = null;
 
       const parseTimeToMs = (timeValue) => {
         const value = timeValue.trim();
@@ -99,7 +102,124 @@
         return Math.max(120, Math.round(longest));
       };
 
+      const getHeaderHeight = () => {
+        return siteHeader ? siteHeader.getBoundingClientRect().height : 0;
+      };
+
+      const getLandingTitleTarget = () => {
+        return preview.querySelector('.preview-panel.is-active .preview-head h2')
+          || preview.querySelector('.preview-panel.is-active .preview-head')
+          || landingContent;
+      };
+
+      const cancelHeroSnap = () => {
+        isSnapping = false;
+        if (snapFrame !== null) {
+          window.cancelAnimationFrame(snapFrame);
+          snapFrame = null;
+        }
+        if (previousSnapOverflowAnchor !== null) {
+          document.documentElement.style.overflowAnchor = previousSnapOverflowAnchor;
+          previousSnapOverflowAnchor = null;
+        }
+      };
+
+      const holdScrollPosition = (targetTop, durationMs, onDone = null) => {
+        isSnapping = true;
+        const releaseAt = performance.now() + durationMs;
+
+        const hold = () => {
+          window.scrollTo({ top: targetTop, behavior: 'auto' });
+          if (performance.now() < releaseAt) {
+            snapFrame = window.requestAnimationFrame(hold);
+            return;
+          }
+          isSnapping = false;
+          snapFrame = null;
+          onDone?.();
+        };
+
+        hold();
+      };
+
+      const measureCollapsedTargetTop = () => {
+        const target = getLandingTitleTarget();
+        const previousScrollY = window.scrollY || window.pageYOffset || 0;
+        const previousTransition = hero?.style.transition || '';
+        const previousOverflowAnchor = document.documentElement.style.overflowAnchor;
+        const wasCollapsed = document.body.classList.contains('home-collapsed');
+
+        document.documentElement.style.overflowAnchor = 'none';
+        if (hero) hero.style.transition = 'none';
+        document.body.classList.add('home-collapsed');
+        hero?.getBoundingClientRect();
+
+        const headerHeight = getHeaderHeight();
+        const targetTop = previousScrollY + target.getBoundingClientRect().top - headerHeight;
+        const maxTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const clampedTop = Math.min(Math.max(0, targetTop), maxTop);
+
+        document.body.classList.toggle('home-collapsed', wasCollapsed);
+        hero?.getBoundingClientRect();
+        if (hero) hero.style.transition = previousTransition;
+        document.documentElement.style.overflowAnchor = previousOverflowAnchor;
+        window.scrollTo({ top: previousScrollY, behavior: 'auto' });
+
+        return clampedTop;
+      };
+
+      const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3);
+
+      const animateToLandingTitle = () => {
+        if (!landingContent || isCollapsed || isSnapping) return;
+
+        cancelHeroSnap();
+
+        const startTop = window.scrollY || window.pageYOffset || 0;
+        const targetTop = measureCollapsedTargetTop();
+        const duration = getHeroCollapseMs();
+        const startTime = performance.now();
+
+        isCollapsed = true;
+        isSnapping = true;
+        previousSnapOverflowAnchor = document.documentElement.style.overflowAnchor;
+        document.documentElement.style.overflowAnchor = 'none';
+        document.body.classList.add('home-collapsed');
+
+        const step = (now) => {
+          const progress = Math.min(1, (now - startTime) / duration);
+          const eased = easeOutCubic(progress);
+          const nextTop = startTop + ((targetTop - startTop) * eased);
+          window.scrollTo({ top: nextTop, behavior: 'auto' });
+
+          if (progress < 1) {
+            snapFrame = window.requestAnimationFrame(step);
+            return;
+          }
+
+          window.scrollTo({ top: targetTop, behavior: 'auto' });
+          holdScrollPosition(targetTop, 180, () => {
+            if (previousSnapOverflowAnchor !== null) {
+              document.documentElement.style.overflowAnchor = previousSnapOverflowAnchor;
+              previousSnapOverflowAnchor = null;
+            }
+          });
+        };
+
+        snapFrame = window.requestAnimationFrame(step);
+      };
+
+      const canStartHeroSnap = () => {
+        const y = window.scrollY || window.pageYOffset || 0;
+        return Boolean(landingContent && !isCollapsed && !isSnapping && y <= 28);
+      };
+
       const updateScrollState = () => {
+        if (isSnapping) {
+          document.body.classList.add('home-collapsed');
+          return;
+        }
+
         if (navInteracting && isCollapsed) {
           document.body.classList.add('home-collapsed');
           return;
@@ -110,21 +230,13 @@
         const expandAt = 0;
 
         if (!isCollapsed && y >= collapseAt) {
-          isCollapsed = true;
+          animateToLandingTitle();
+          return;
         } else if (isCollapsed && y <= expandAt) {
           isCollapsed = false;
         }
 
         document.body.classList.toggle('home-collapsed', isCollapsed);
-      };
-
-      const scrollToLandingContent = (behavior = 'smooth') => {
-        if (!landingContent) return;
-        const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
-        const targetTop = window.scrollY + landingContent.getBoundingClientRect().top - headerHeight;
-        const maxTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-        const clampedTop = Math.min(Math.max(0, targetTop), maxTop);
-        window.scrollTo({ top: clampedTop, behavior });
       };
 
       const setNavSelection = () => {
@@ -267,13 +379,67 @@
       homeLogo?.addEventListener('click', (event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
-        if (settleScrollTimer) {
-          window.clearTimeout(settleScrollTimer);
-          settleScrollTimer = null;
-        }
+        cancelHeroSnap();
         isCollapsed = false;
         document.body.classList.remove('home-collapsed');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      window.addEventListener('wheel', (event) => {
+        if (isSnapping) {
+          if (event.cancelable) event.preventDefault();
+          return;
+        }
+
+        const isPrimaryDownScroll = event.deltaY > 0 && Math.abs(event.deltaY) >= Math.abs(event.deltaX);
+        if (!isPrimaryDownScroll || !canStartHeroSnap()) return;
+
+        if (event.cancelable) event.preventDefault();
+        animateToLandingTitle();
+      }, { passive: false });
+
+      window.addEventListener('touchstart', (event) => {
+        touchStartY = event.touches[0]?.clientY ?? null;
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (event) => {
+        if (isSnapping) {
+          if (event.cancelable) event.preventDefault();
+          return;
+        }
+
+        if (!canStartHeroSnap() || touchStartY === null) return;
+
+        const currentY = event.touches[0]?.clientY ?? touchStartY;
+        const isScrollingDown = touchStartY - currentY > 8;
+        if (!isScrollingDown) return;
+
+        if (event.cancelable) event.preventDefault();
+        animateToLandingTitle();
+        touchStartY = null;
+      }, { passive: false });
+
+      window.addEventListener('touchend', () => {
+        touchStartY = null;
+      }, { passive: true });
+
+      window.addEventListener('keydown', (event) => {
+        const scrollKeys = new Set(['ArrowDown', 'PageDown', ' ', 'Spacebar']);
+        if (!scrollKeys.has(event.key)) return;
+
+        const target = event.target;
+        const isEditable = target?.isContentEditable
+          || ['INPUT', 'SELECT', 'TEXTAREA'].includes(target?.tagName);
+        if (isEditable) return;
+
+        if (isSnapping) {
+          event.preventDefault();
+          return;
+        }
+
+        if (!canStartHeroSnap()) return;
+        event.preventDefault();
+        animateToLandingTitle();
       });
 
       const siteNavList = document.querySelector('.site-nav ul');
