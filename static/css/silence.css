@@ -5,6 +5,23 @@
   --paper: #f4f0e8;
   --red: #b91c1c;
   --muted: #5a5047;
+  --border: rgba(90, 80, 71, 0.1);
+  --border-med: rgba(90, 80, 71, 0.22);
+  --border-strong: rgba(90, 80, 71, 0.35);
+  --shadow: rgba(13, 12, 11, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8e4dc;
+    --paper: #1a1816;
+    --red: #e05252;
+    --muted: #9a9088;
+    --border: rgba(200, 190, 175, 0.1);
+    --border-med: rgba(200, 190, 175, 0.18);
+    --border-strong: rgba(200, 190, 175, 0.28);
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -69,7 +86,7 @@ body {
   align-items: center;
   padding: 1.5rem 0;
   margin-bottom: 3rem;
-  border-bottom: 1px solid rgba(90, 80, 71, 0.1);
+  border-bottom: 1px solid var(--border);
 }
 
 .has-hero .site-nav {
@@ -564,7 +581,7 @@ html:not(.js) .landing-hero-inline {
 .landing-preview {
   margin: 2.8rem auto 0;
   width: min(86ch, 100%);
-  border-top: 1px solid rgba(90, 80, 71, 0.35);
+  border-top: 1px solid var(--border-strong);
   padding-top: 1.35rem;
 }
 
@@ -631,9 +648,9 @@ html:not(.js) .landing-hero-inline {
   opacity: 1;
   overflow: auto;
   pointer-events: auto;
-  border-color: rgba(90, 80, 71, 0.22);
+  border-color: var(--border-med);
   background: color-mix(in srgb, var(--paper) 97%, #fff 3%);
-  box-shadow: 0 12px 28px rgba(13, 12, 11, 0.08);
+  box-shadow: 0 12px 28px var(--shadow);
 }
 
 .has-hero:not(.home) .nav-preview .preview-head {
@@ -658,7 +675,7 @@ html:not(.js) .landing-hero-inline {
 }
 
 .has-hero:not(.home) .nav-preview .preview-list a {
-  border-bottom: 1px solid rgba(90, 80, 71, 0.22);
+  border-bottom: 1px solid var(--border-med);
 }
 
 .preview-stage {
@@ -728,7 +745,7 @@ html:not(.js) .landing-hero-inline {
 .preview-list a {
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid rgba(90, 80, 71, 0.35);
+  border-bottom: 1px solid var(--border-strong);
   transition: color 0.2s, border-color 0.2s;
 }
 
@@ -826,7 +843,7 @@ html:not(.js) .landing-hero-inline {
     letter-spacing: 0.15em;
     line-height: 1.15;
     padding: 0.35rem 0.2rem 0.3rem;
-    border-bottom-color: rgba(90, 80, 71, 0.16);
+    border-bottom-color: var(--border);
   }
 
   .site-nav a.is-selected,
