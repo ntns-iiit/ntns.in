@@ -1,4 +1,4 @@
-{{ define "title" }}{{ .Title | plainify }} · The Reading Circle{{ end }}
+{{ define "title" }}{{ (partial "meeting-name.html" .).title | plainify }} · The Reading Circle{{ end }}
 
 {{ define "main" }}
   {{ partial "page-header.html" (dict "page" . "meta" (slice .Params.venue (.Params.sessionDate | time.Format "2 January 2006") (.Params.sessionDate | time.Format "3:04 PM"))) }}

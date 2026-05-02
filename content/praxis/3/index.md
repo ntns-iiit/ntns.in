@@ -1,6 +1,4 @@
 ---
-title: "Minutes of the Third Meeting"
-heading: "Minutes of the <em>Third</em> Meeting"
 meeting: 3
 type: "praxis"
 date: 2026-04-24

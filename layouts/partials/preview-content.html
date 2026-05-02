@@ -11,7 +11,7 @@
 {{- $full := .full -}}
 {{- with $page -}}
   <header class="preview-head">
-    <h2>{{ .Params.heading | default .Title | safeHTML }}</h2>
+    <h2>{{ (partial "meeting-name.html" .).heading | safeHTML }}</h2>
     {{ with .Params.subtitle }}<p class="preview-subtitle">{{ . }}</p>{{ end }}
   </header>
   <div class="preview-body">
@@ -26,7 +26,7 @@
       <ul class="preview-list">
         {{ range . }}
           <li>
-            <a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
+            <a href="{{ .RelPermalink }}">{{ (partial "meeting-name.html" .).title | safeHTML }}</a>
             {{ with .Date }}<time class="session-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2 Jan 2006" }}</time>{{ end }}
           </li>
         {{ end }}

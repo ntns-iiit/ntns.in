@@ -1,6 +1,4 @@
 ---
-title: "Minutes of the First Accountability Meeting"
-heading: "Minutes of the <em>First</em> Accountability Meeting"
 meeting: 1
 type: "accountability"
 date: 2026-04-24

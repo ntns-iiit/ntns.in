@@ -1,5 +1,5 @@
 {{- $page := .page -}}
-{{- $heading := .heading | default $page.Params.heading | default $page.Title -}}
+{{- $heading := .heading | default (partial "meeting-name.html" $page).heading -}}
 {{- $subtitle := .subtitle | default $page.Params.subtitle -}}
 {{- $meta := $page.Params.meta -}}
 {{- if isset . "meta" -}}{{- $meta = .meta -}}{{- end -}}

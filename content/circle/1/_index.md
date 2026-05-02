@@ -1,7 +1,7 @@
 ---
-title: "<em>Session I</em> — Students and Politics"
 type: session
 meeting: 1
+topic: "Students and Politics"
 date: 2026-04-04
 sessionDate: "2026-04-08T18:30:00+05:30"
 venue: "Vindhya A3-117"

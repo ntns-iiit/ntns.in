@@ -1,6 +1,4 @@
 ---
-title: "Minutes of the First Session"
-heading: "Minutes of the <em>First</em> Session"
 meeting: 1
 type: minutes
 date: 2026-04-08

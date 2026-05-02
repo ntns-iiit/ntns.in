@@ -1,4 +1,4 @@
-{{ define "title" }}{{ .Title }} · {{ .Params.seriesTitle | default .Parent.Params.footerLabel | default .Parent.Title }}{{ end }}
+{{ define "title" }}{{ (partial "meeting-name.html" .).title | plainify }} · {{ .Params.seriesTitle | default .Parent.Params.footerLabel | default .Parent.Title }}{{ end }}
 
 {{ define "main" }}
   {{ partial "meeting-single-page.html" . }}

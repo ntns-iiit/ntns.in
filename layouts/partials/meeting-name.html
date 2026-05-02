@@ -1,0 +1,39 @@
+{{- /*
+  meeting-name.html — given a Page, returns a dict with `title` and `heading`
+  derived from .Type + .Params.meeting (+ .Params.topic for sessions).
+  Falls back to the page's own front-matter title/heading when meeting is
+  not set or the type is not a numbered one.
+
+  The two values may contain HTML (`<em>…</em>`); render with `safeHTML`,
+  or pipe through `plainify` for use in `<title>` / ics SUMMARY etc.
+*/ -}}
+{{- $page := . -}}
+{{- $n := int ($page.Params.meeting | default 0) -}}
+{{- $type := $page.Type -}}
+{{- $title := $page.Title -}}
+{{- $heading := $page.Params.heading | default $page.Title -}}
+{{- if gt $n 0 -}}
+  {{- $words := slice "" "First" "Second" "Third" "Fourth" "Fifth" "Sixth" "Seventh" "Eighth" "Ninth" "Tenth" "Eleventh" "Twelfth" "Thirteenth" "Fourteenth" "Fifteenth" "Sixteenth" "Seventeenth" "Eighteenth" "Nineteenth" "Twentieth" -}}
+  {{- $romans := slice "" "I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X" "XI" "XII" "XIII" "XIV" "XV" "XVI" "XVII" "XVIII" "XIX" "XX" -}}
+  {{- $word := cond (lt $n (len $words)) (index $words $n) (string $n) -}}
+  {{- $roman := cond (lt $n (len $romans)) (index $romans $n) (string $n) -}}
+  {{- if eq $type "praxis" -}}
+    {{- $title = printf "Minutes of the %s Meeting" $word -}}
+    {{- $heading = printf "Minutes of the <em>%s</em> Meeting" $word -}}
+  {{- else if eq $type "accountability" -}}
+    {{- $title = printf "Minutes of the %s Accountability Meeting" $word -}}
+    {{- $heading = printf "Minutes of the <em>%s</em> Accountability Meeting" $word -}}
+  {{- else if eq $type "minutes" -}}
+    {{- $title = printf "Minutes of the %s Session" $word -}}
+    {{- $heading = printf "Minutes of the <em>%s</em> Session" $word -}}
+  {{- else if eq $type "session" -}}
+    {{- $topic := $page.Params.topic -}}
+    {{- if $topic -}}
+      {{- $title = printf "<em>Session %s</em> — %s" $roman $topic -}}
+    {{- else -}}
+      {{- $title = printf "<em>Session %s</em>" $roman -}}
+    {{- end -}}
+    {{- $heading = $title -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict "title" $title "heading" $heading) -}}
