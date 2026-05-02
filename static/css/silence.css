@@ -321,7 +321,7 @@ em { color: var(--muted); }
   margin-bottom: 0.5rem;
 }
 
-.cta-note { font-style: italic; font-size: 0.95rem; color: var(--muted); }
+.cta .cta-note { font-style: italic; font-size: 0.95rem; color: var(--muted); text-align: center; }
 
 .cta-text {
   font-family: 'IM Fell English', serif;
@@ -538,6 +538,8 @@ footer a:hover { border-color: var(--red); }
 .hero-socials {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 
