@@ -371,6 +371,7 @@
 
   homeLogo?.addEventListener('click', (event) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!isHome) return;
     event.preventDefault();
     cancelHeroSnap();
     isCollapsed = false;
