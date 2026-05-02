@@ -1,7 +1,7 @@
 {{ define "title" }}{{ (partial "meeting-name.html" .).title | plainify }} · The Reading Circle{{ end }}
 
 {{ define "main" }}
-  <header>
+  <header class="page-header">
     <div class="eyebrow"><a href="/">ntns.in</a> &nbsp;·&nbsp; <a href="{{ .Parent.RelPermalink }}">← Session {{ .Parent.Params.meeting }}</a> &nbsp;·&nbsp; {{ .Date.Format "2 January 2006" }}</div>
     <h1>{{ (partial "meeting-name.html" .).heading | safeHTML }}</h1>
     <p class="subtitle">The Reading Circle — Session {{ .Parent.Params.meeting }}</p>
