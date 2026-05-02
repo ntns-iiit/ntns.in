@@ -1,7 +1,7 @@
 ---
 meeting: 1
 type: "accountability"
-date: 2026-04-24
+date: 2026-04-23
 meta:
   - "IIIT Hyderabad"
   - "23 April 2026"
