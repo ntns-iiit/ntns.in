@@ -1,10 +1,7 @@
 {{ define "title" }}{{ .Title | plainify }} · {{ .Params.author }}{{ end }}
 
 {{ define "main" }}
-  <header class="page-header">
-    <h1>{{ .Title | safeHTML }}</h1>
-    <p class="subtitle">{{ .Params.author }}</p>
-  </header>
+  {{ partial "page-header.html" (dict "page" . "subtitle" .Params.author) }}
 
   {{ partial "download-bar.html" . }}
 

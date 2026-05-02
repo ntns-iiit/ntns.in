@@ -1,5 +1,8 @@
 ---
 title: "The Reading Circle"
+heading: "NTNS: <span style=\"color: var(--red);\">Theory</span>"
+subtitle: "To politicize the apolitical engineer"
+footerLabel: "Reading Circle"
 date: 2026-04-04
 ---
 

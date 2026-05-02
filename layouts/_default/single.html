@@ -1,0 +1,9 @@
+{{ define "title" }}{{ .Title }} · {{ .Params.seriesTitle | default .Parent.Params.footerLabel | default .Parent.Title }}{{ end }}
+
+{{ define "main" }}
+  {{ partial "meeting-single-page.html" . }}
+{{ end }}
+
+{{ define "footer" }}
+  {{ partial "footer-meeting.html" . }}
+{{ end }}

@@ -1,0 +1,5 @@
+{{- $seriesTitle := .Params.seriesTitle | default .Parent.Params.footerLabel | default .Parent.Title -}}
+{{ partial "page-header.html" (dict "page" . "subtitle" (printf "%s — Meeting %v" $seriesTitle .Params.meeting)) }}
+
+{{ .Content }}
+{{- if .Store.Get "inSection" }}</section>{{ end }}

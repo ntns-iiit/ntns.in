@@ -1,0 +1,15 @@
+{{- $page := .page -}}
+{{- $heading := .heading | default $page.Params.heading | default $page.Title -}}
+{{- $subtitle := .subtitle | default $page.Params.subtitle -}}
+{{- $meta := $page.Params.meta -}}
+{{- if isset . "meta" -}}{{- $meta = .meta -}}{{- end -}}
+<header class="page-header">
+  <h1>{{ $heading | safeHTML }}</h1>
+  {{ with $subtitle }}<p class="subtitle">{{ . | safeHTML }}</p>{{ end }}
+  {{ partial "meta-row.html" $meta }}
+  {{ with $page.Params.minutesLink }}
+  <div class="minutes-link">
+    <a href="{{ . }}">{{ $page.Params.minutesLinkText | default "Read the Minutes from the Meetings →" }}</a>
+  </div>
+  {{ end }}
+</header>

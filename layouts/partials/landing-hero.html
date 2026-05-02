@@ -1,0 +1,17 @@
+{{- $inline := .inline | default false -}}
+<div class="landing-hero{{ if $inline }} landing-hero-inline{{ end }}">
+  {{- if $inline }}
+  <a href="/" class="hero-logo-link" aria-label="Home">
+    <img src="/ntns-logo.svg" alt="NTNS Logo" class="hero-logo">
+  </a>
+  <a href="/" class="hero-title hero-home-link">No Tyrants, No Silence</a>
+  {{- else }}
+  <img src="/ntns-logo.svg" alt="NTNS Logo" class="hero-logo">
+  <h1 class="hero-title">No Tyrants, No Silence</h1>
+  {{- end }}
+  <div class="hero-socials">
+    <a href="https://instagram.com/ntns.iiit" target="_blank">@ntns.iiit</a>
+    <a href="mailto:we@ntns.in">we@ntns.in</a>
+    <a rel="me" href="https://social.coop/@ntns">@ntns@social.coop</a>
+  </div>
+</div>

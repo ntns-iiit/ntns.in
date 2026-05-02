@@ -1,7 +1,6 @@
 ---
 title: "Minutes of the First Meeting"
 heading: "Minutes of the <em>First</em> Meeting"
-seriesTitle: "NTNS: Praxis Meetings"
 meeting: 1
 type: "praxis"
 date: 2026-03-27

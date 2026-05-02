@@ -388,7 +388,7 @@ footer a:hover { border-color: var(--red); }
 }
 
 /* ── ITEM LIST — shared pattern for meetings, sessions, texts ── */
-/* Used by: .meeting-list (mom/circle indexes), .text-list (session page) */
+/* Used by: .meeting-list (section indexes), .text-list (session page) */
 .meeting-list,
 .text-list {
   list-style: none;
@@ -845,115 +845,6 @@ footer a:hover { border-color: var(--red); }
   margin-bottom: 1em;
   text-align: justify;
   hyphens: auto;
-}
-
-/* ── LANDING PAGE ── */
-.landing-links {
-  list-style: none;
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.landing-links > li {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.landing-links .link-label {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  color: var(--red);
-}
-
-.landing-links > li > a {
-  font-family: 'IM Fell English', serif;
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  color: var(--ink);
-  text-decoration: none;
-  line-height: 1.15;
-  transition: color 0.2s;
-}
-
-.landing-links > li > a:hover {
-  color: var(--red);
-}
-
-.landing-links .link-desc {
-  font-style: italic;
-  color: var(--muted);
-  font-size: 1rem;
-}
-
-.landing-sub {
-  list-style: none;
-  margin-top: 0.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  padding-left: 0.1em;
-}
-
-.landing-sub a {
-  font-family: 'Crimson Pro', Georgia, serif;
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.landing-sub a::before {
-  content: '→ ';
-  color: var(--red);
-  font-style: normal;
-}
-
-.landing-sub a:hover {
-  color: var(--ink);
-}
-
-/* ── CONTACT ── */
-.contact {
-  margin-top: 3rem;
-  border-top: 1px solid var(--muted);
-  padding-top: 1.5rem;
-  text-align: center;
-}
-
-.contact-label {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  color: var(--muted);
-  margin-bottom: 0.6rem;
-}
-
-.contact-email {
-  font-family: 'IM Fell English', serif;
-  font-size: clamp(1.2rem, 4vw, 1.6rem);
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--muted);
-  transition: color 0.2s, border-color 0.2s;
-  display: inline-block;
-  line-height: 1.3;
-}
-
-.contact-email:hover {
-  color: var(--red);
-  border-color: var(--red);
-}
-
-.contact-note {
-  font-style: italic;
-  color: var(--muted);
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0;
 }
 
 /* ── DOWNLOAD BAR ── */

@@ -1,0 +1,13 @@
+{{- if .Pages -}}
+<ul class="meeting-list">
+  {{ range .Pages.ByDate.Reverse }}
+  <li>
+    <span class="meeting-num">Meeting {{ .Params.meeting }}</span>
+    <a href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
+    {{ $date := .Date }}
+    {{ with .Params.sessionDate }}{{ $date = . | time.AsTime }}{{ end }}
+    <div class="meeting-date">{{ $date.Format "2 January 2006" }}</div>
+  </li>
+  {{ end }}
+</ul>
+{{- end -}}

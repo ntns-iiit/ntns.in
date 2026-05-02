@@ -1,0 +1,11 @@
+{{- $selected := "manifesto" -}}
+{{- if eq .Section "praxis" -}}
+  {{- $selected = "praxis" -}}
+{{- else if eq .Section "accountability" -}}
+  {{- $selected = "accountability" -}}
+{{- else if eq .Section "circle" -}}
+  {{- $selected = "theory" -}}
+{{- else if and (eq .Section "silence") (not .IsHome) -}}
+  {{- $selected = "manifesto" -}}
+{{- end -}}
+{{- return $selected -}}

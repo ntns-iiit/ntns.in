@@ -1,0 +1,5 @@
+{{ partial "page-header.html" (dict "page" . "meta" false) }}
+
+{{ with .Content }}<div>{{ . }}</div>{{ end }}
+
+{{ partial "meeting-list.html" . }}

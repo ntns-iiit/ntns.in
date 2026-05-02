@@ -1,7 +1,6 @@
 ---
 title: "Minutes of the First Accountability Meeting"
 heading: "Minutes of the <em>First</em> Accountability Meeting"
-seriesTitle: "NTNS: Admin Accountability Meetings"
 meeting: 1
 type: "accountability"
 date: 2026-04-24
@@ -10,7 +9,6 @@ meta:
   - "23 April 2026"
   - "Faculty Meeting Room"
 sectioned: true
-parentLabel: "Accountability"
 aliases:
   - "/silence/admin/1/"
   - "/admin/1"

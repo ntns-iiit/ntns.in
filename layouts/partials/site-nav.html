@@ -1,0 +1,14 @@
+{{- $selectedPanel := .selectedPanel | default "manifesto" -}}
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="/" class="nav-logo nav-logo-home">
+      <img src="/ntns-logo.svg" alt="NTNS Logo">
+    </a>
+    <ul>
+      <li><a href="/silence/" class="nav-manifesto{{ if eq $selectedPanel "manifesto" }} is-selected{{ end }}" data-panel="manifesto"{{ if eq $selectedPanel "manifesto" }} aria-current="page"{{ end }}>Manifesto</a></li>
+      <li><a href="/praxis/" class="nav-praxis{{ if eq $selectedPanel "praxis" }} is-selected{{ end }}" data-panel="praxis"{{ if eq $selectedPanel "praxis" }} aria-current="page"{{ end }}>Praxis</a></li>
+      <li><a href="/accountability/" class="nav-accountability{{ if eq $selectedPanel "accountability" }} is-selected{{ end }}" data-panel="accountability"{{ if eq $selectedPanel "accountability" }} aria-current="page"{{ end }}>Accountability</a></li>
+      <li><a href="/circle/" class="nav-theory{{ if eq $selectedPanel "theory" }} is-selected{{ end }}" data-panel="theory"{{ if eq $selectedPanel "theory" }} aria-current="page"{{ end }}>Theory</a></li>
+    </ul>
+  </nav>
+</header>

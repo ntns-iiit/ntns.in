@@ -1,0 +1,28 @@
+{{- $selectedPanel := .selectedPanel | default "manifesto" -}}
+{{- $isHome := .isHome | default false -}}
+{{- $manifesto := site.GetPage "/silence" -}}
+{{- $praxis := site.GetPage "/praxis" -}}
+{{- $accountability := site.GetPage "/accountability" -}}
+{{- $theory := site.GetPage "/circle" -}}
+{{- $praxisMeetings := first 3 (sort (where site.RegularPages "Type" "praxis") "Date" "desc") -}}
+{{- $accountabilityMeetings := first 3 (sort (where site.RegularPages "Type" "accountability") "Date" "desc") -}}
+{{- $sessions := first 3 (sort (where (where site.Pages "Kind" "section") "Type" "session") "Date" "desc") -}}
+<section class="{{ if not $isHome }}nav-preview {{ end }}landing-preview" data-selected="{{ $selectedPanel }}" data-active="{{ $selectedPanel }}" aria-live="polite">
+  <div class="preview-stage">
+    <article class="preview-panel preview-manifesto{{ if eq $selectedPanel "manifesto" }} is-active{{ end }}" data-panel="manifesto" aria-hidden="{{ if eq $selectedPanel "manifesto" }}false{{ else }}true{{ end }}">
+      {{ partial "preview-content.html" (dict "page" $manifesto "full" $isHome) }}
+    </article>
+
+    <article class="preview-panel preview-praxis{{ if eq $selectedPanel "praxis" }} is-active{{ end }}" data-panel="praxis" aria-hidden="{{ if eq $selectedPanel "praxis" }}false{{ else }}true{{ end }}">
+      {{ partial "preview-content.html" (dict "page" $praxis "items" $praxisMeetings) }}
+    </article>
+
+    <article class="preview-panel preview-accountability{{ if eq $selectedPanel "accountability" }} is-active{{ end }}" data-panel="accountability" aria-hidden="{{ if eq $selectedPanel "accountability" }}false{{ else }}true{{ end }}">
+      {{ partial "preview-content.html" (dict "page" $accountability "items" $accountabilityMeetings) }}
+    </article>
+
+    <article class="preview-panel preview-theory{{ if eq $selectedPanel "theory" }} is-active{{ end }}" data-panel="theory" aria-hidden="{{ if eq $selectedPanel "theory" }}false{{ else }}true{{ end }}">
+      {{ partial "preview-content.html" (dict "page" $theory "full" $isHome "items" $sessions "itemsTitle" "Latest Sessions") }}
+    </article>
+  </div>
+</section>

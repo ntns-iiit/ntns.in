@@ -1,16 +1,7 @@
 {{ define "title" }}{{ .Title }}{{ end }}
 
 {{ define "main" }}
-  <header class="page-header">
-    <h1>{{ .Params.heading | safeHTML }}</h1>
-    {{ with .Params.subtitle }}<p class="subtitle">{{ . }}</p>{{ end }}
-    {{ partial "meta-row.html" .Params.meta }}
-    {{ with .Params.minutesLink }}
-    <div class="minutes-link">
-      <a href="{{ . }}">{{ $.Params.minutesLinkText | default "Read the Minutes from the Meetings →" }}</a>
-    </div>
-    {{ end }}
-  </header>
+  {{ partial "page-header.html" (dict "page" .) }}
 
   {{ .Content }}
   {{- if .Store.Get "inSection" }}</section>{{ end }}

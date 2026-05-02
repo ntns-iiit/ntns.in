@@ -1,10 +1,7 @@
 {{ define "title" }}{{ .Title | plainify }} · The Reading Circle{{ end }}
 
 {{ define "main" }}
-  <header class="page-header">
-    <h1>{{ .Title | safeHTML }}</h1>
-    {{ partial "meta-row.html" (slice .Params.venue (.Params.sessionDate | time.Format "2 January 2006") (.Params.sessionDate | time.Format "3:04 PM")) }}
-  </header>
+  {{ partial "page-header.html" (dict "page" . "meta" (slice .Params.venue (.Params.sessionDate | time.Format "2 January 2006") (.Params.sessionDate | time.Format "3:04 PM"))) }}
 
   {{ partial "add-to-calendar.html" . }}
 
