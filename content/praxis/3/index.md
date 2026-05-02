@@ -122,17 +122,17 @@ The core question: should NTNS be **explicitly leftist** in its public framing, 
 - **Rangbhoomi Spaces** — moved out of Indiranagar to a larger space; weekly/bi-weekly plays, high quality (Member-K).
 - Idea: NTNS could maintain its own mailing list pointing people to these spaces.
 
-##. Specific Issues / Topics Mentioned
+## Specific Issues / Topics Mentioned
 
 - **IT Bill** — May 9 deadline (shifted again). To revisit; Member-O was absent.
 - **Water issue** — ongoing; if it goes through, NTNS can claim partial credit.
 - **AI politics** — flagged as the kind of tech-adjacent political topics similar groups don't cover, and which NTNS is uniquely positioned to take up.
 
-##. Batch Trip
+## Batch Trip
 
 - Listed on agenda but **skipped** — no representative present, exact date unclear (possibly July 6).
 
-##. [Redacted] (case subject) Case & Security Committee Update
+## [Redacted] (case subject) Case & Security Committee Update
 
 ### DC Process
 
@@ -186,13 +186,13 @@ Approved by Director and Registrar (with comments). Budget approved by GC the pr
 - **Forum thread for security committee suggestions** to be opened.
 - Debate over whether Parliament should send an email to students about the forum: Member-B pushed for it; Member-E cautioned that this risks making NTNS look like a extenstion of the parliament. Member-A: NTNS should be independent; NTNS members can independently popularise it through their own channels.
 
-##. Logo
+## Logo
 
 - Current logo (fist with antennas + "NTNS" lettering) generally well-liked.
 - Member-E to revise lettering by end of Sunday.
 - Suggested: replace the "NTNS" text with **"No Tyrants, No Silence"**.
 
-##. Meeting Mechanics (brief)
+## Meeting Mechanics (brief)
 
 - Discussion at the end about whether to set a hard stop time. General sense: leave it for now, revisit if it becomes an issue. Today ran ~2 hours which felt acceptable.
 
